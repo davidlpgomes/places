@@ -1,0 +1,27 @@
+@startuml
+actor Usuario1 as "Usuário 1"
+actor Usuario2 as "Usuário 2"
+participant Sistema as "Sistema"
+
+activate Usuario1
+activate Sistema
+
+Usuario1 -> Sistema: solicitaAmizade(idUsuário2)
+
+alt Usuários não podem ser amigos ainda
+    Sistema -> Sistema: validaSolicitação\n(idUsuário1, idUsuário2)
+    alt Usuário2 deve existir
+            Sistema --> Usuario1: Confirmação de \nsolicitação enviada
+            Sistema --> Usuario2: Notificação de \nsolicitação de amizade
+        else Solicitação inválida
+            Sistema --> Usuario1: Erro - Solicitação inválida
+    else Usuário2 não existe
+        Sistema --> Usuario1: Erro - Usuário2 não existe
+    end
+else Usuários já são amigos
+    Sistema --> Usuario1: Erro - Usuários já são amigos
+end
+
+deactivate Usuario1
+deactivate Sistema
+@enduml

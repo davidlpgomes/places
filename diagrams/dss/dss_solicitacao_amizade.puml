@@ -1,0 +1,9 @@
+@startuml
+actor Usuario1 as "Usuário 1"
+actor Usuario2 as "Usuário 2"
+
+Usuario1 -> Sistema: solicitacaoAmizade(idUsuário2)
+Sistema --> Usuario1: Confirmação de \nsolicitação enviada
+Sistema --> Usuario2: Notificação de\nsolicitação de amizade
+
+@enduml
