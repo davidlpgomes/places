@@ -1,0 +1,36 @@
+@startuml
+Usuário -> Sistema: abreAplicativo()
+note right: Fluxo Principal começa aqui.
+
+Usuário -> Sistema: navegaParaSecaoEventosOuLocais()
+
+alt Usuário não autenticado
+    Sistema --> Usuário: solicitaAutenticacao()
+    Usuário -> Sistema: fazerLoginOuCriarConta()
+    note right: Retorne ao fluxo principal após autenticação.
+else Usuário autenticado
+end
+
+Usuário -> Sistema: selecionaEventoOuLugar(id)
+alt Evento ou Lugar existente e disponível
+    Sistema --> Usuário: exibeDetalhesEventoOuLugar(nome, descrição, data, horário, localização)
+else Evento ou Lugar não existente ou não disponível
+    Sistema --> Usuário: exibeMensagemErro()
+    Usuário -> Sistema: retornaParaPaginaAnterior()
+end
+
+Usuário -> Sistema: decideRegistrarIntencao()
+
+alt Cancelar intenção
+    Usuário -> Sistema: selecionarOpcaoCancelarIntencao()
+    note right: Fluxo Alternativo termina aqui.
+else Registrar intenção
+    Usuário -> Sistema: selecionarOpcaoRegistrarIntencao()
+    Sistema -> Sistema: registraIntencao()
+    Sistema -> Sistema: atualizaInformacoesEventoOuLugar()
+    Sistema --> Usuário: exibeConfirmacaoRegistroIntencao()
+    note right: Fluxo Principal termina aqui.
+end
+
+note right: Pós-condições: intenção do usuário é registrada e refletida nas informações do evento ou lugar.
+@enduml
