@@ -1,0 +1,143 @@
+Operação: "abreAplicativo()". O sistema permite que o usuário abra o aplicativo.
+Referências cruzadas:
+• Caso de uso: Registrar Intenções em Eventos ou Lugares
+• Diagrama de Sequência relacionado: registraIntencoes
+Pré-Condições:
+• Nenhuma.
+Pós-Condições:
+• O aplicativo está em execução e pronto para uso.
+
+
+Operação: "navegaParaSecaoEventosOuLocais()". O sistema leva o usuário para a seção de eventos ou locais.
+Referências cruzadas:
+• Caso de uso: Registrar Intenções em Eventos ou Lugares
+• Diagrama de Sequência relacionado: registraIntencoes
+Pré-Condições:
+• O aplicativo deve estar aberto.
+Pós-Condições:
+• O usuário está na seção de eventos ou locais.
+
+
+Operação: "solicitaAutenticacao()". O sistema pede ao usuário para se autenticar.
+Referências cruzadas:
+• Caso de uso: Registrar Intenções em Eventos ou Lugares
+• Diagrama de Sequência relacionado: registraIntencoes
+Pré-Condições:
+• O usuário não está autenticado.
+Pós-Condições:
+• O usuário é levado para a tela de autenticação.
+
+
+Operação: "fazerLoginOuCriarConta()". O sistema permite ao usuário fazer login ou, caso não tenha uma conta, criar uma.
+Referências cruzadas:
+• Caso de uso: Registrar Intenções em Eventos ou Lugares
+• Diagrama de Sequência relacionado: registraIntencoes
+Pré-Condições:
+• O usuário não está autenticado.
+• O usuário solicitou autenticação.
+Pós-Condições:
+• O usuário está autenticado ou uma nova conta é criada.
+
+
+Operação: "selecionaEventoOuLugar(id)". O sistema permite que o usuário escolha um evento ou lugar.
+Referências cruzadas:
+• Caso de uso: Registrar Intenções em Eventos ou Lugares
+• Diagrama de Sequência relacionado: registraIntencoes
+Pré-Condições:
+• O usuário está na seção de eventos ou locais.
+Pós-Condições:
+• Informações do evento ou lugar selecionado são mostradas.
+
+
+Operação: "exibeDetalhesEventoOuLugar(nome, descrição, localização)". O sistema exibe os detalhes do evento ou lugar selecionado para o usuário.
+Referências cruzadas:
+• Caso de uso: Registrar Intenções em Eventos ou Lugares
+• Diagrama de Sequência relacionado: registraIntencoes
+Pré-Condições:
+• O evento ou lugar existe e está disponível.
+Pós-Condições:
+• Os detalhes do evento ou lugar são exibidos para o usuário.
+
+
+Operação: "exibeMensagemErro()". O sistema informa ao usuário sobre um erro específico.
+Referências cruzadas:
+• Caso de uso: Registrar Intenções em Eventos ou Lugares
+• Diagrama de Sequência relacionado: registraIntencoes
+Pré-Condições:
+• Ocorreu um erro, como um evento ou lugar inexistente ou indisponível.
+Pós-Condições:
+• Uma mensagem de erro é exibida ao usuário.
+
+
+Operação: "retornaParaPaginaAnterior()". O sistema permite ao usuário voltar à página anterior ou à página principal.
+Referências cruzadas:
+• Caso de uso: Registrar Intenções em Eventos ou Lugares
+• Diagrama de Sequência relacionado: registraIntencoes
+Pré-Condições:
+• O usuário está em uma página com erro ou onde deseja sair.
+Pós-Condições:
+• O usuário retorna à página anterior ou à página principal.
+
+
+Operação: "decideRegistrarIntencao()". O sistema registra a intenção do usuário de participar de um evento ou visitar um lugar.
+Referências cruzadas:
+• Caso de uso: Registrar Intenções em Eventos ou Lugares
+• Diagrama de Sequência relacionado: registraIntencoes
+Pré-Condições:
+• Informações do evento ou lugar foram mostradas.
+Pós-Condições:
+• O usuário pode registrar sua intenção.
+
+
+Operação: "selecionarOpcaoCancelarIntencao()". O sistema fornece a opção para o usuário cancelar uma intenção previamente registrada.
+Referências cruzadas:
+• Caso de uso: Registrar Intenções em Eventos ou Lugares
+• Diagrama de Sequência relacionado: registraIntencoes
+Pré-Condições:
+• O usuário tem uma intenção registrada.
+• O usuário deseja cancelar a intenção registrada.
+Pós-Condições:
+• O processo de cancelamento da intenção é iniciado.
+
+
+Operação: "selecionarOpcaoRegistrarIntencao()". O sistema confirma o registro da intenção do usuário.
+Referências cruzadas:
+• Caso de uso: Registrar Intenções em Eventos ou Lugares
+• Diagrama de Sequência relacionado: registraIntencoes
+Pré-Condições:
+• O usuário decidiu registrar sua intenção.
+Pós-Condições:
+• A intenção do usuário é refletida nas informações do evento ou lugar e uma confirmação é mostrada.
+
+
+Operação: "registraIntencao()". O sistema processa a solicitação do usuário para registrar uma intenção em um evento ou lugar específico.
+Referências cruzadas:
+• Caso de uso: Registrar Intenções em Eventos ou Lugares
+• Diagrama de Sequência relacionado: registraIntencoes
+Pré-Condições:
+• O usuário selecionou a opção para registrar intenção.
+• O evento ou lugar para o qual o usuário deseja registrar intenção é válido.
+Pós-Condições:
+• A intenção do usuário é registrada no sistema.
+• O evento ou lugar tem sua contagem ou status atualizado para refletir a nova intenção.
+
+
+Operação: "atualizaInformacoesEventoOuLugar()". O sistema atualiza as informações de um evento ou lugar específico para refletir as alterações ou atualizações mais recentes.
+Referências cruzadas:
+• Caso de uso: Registrar Intenções em Eventos ou Lugares
+• Diagrama de Sequência relacionado: registraIntencoes
+Pré-Condições:
+• Existem informações atualizadas para o evento ou lugar selecionado.
+Pós-Condições:
+• As informações do evento ou lugar no sistema são atualizadas.
+• O usuário visualiza as informações atualizadas do evento ou lugar.
+
+
+Operação: "exibeConfirmacaoRegistroIntencao()". O sistema informa ao usuário que sua intenção foi registrada com sucesso.
+Referências cruzadas:
+• Caso de uso: Registrar Intenções em Eventos ou Lugares
+• Diagrama de Sequência relacionado: registraIntencoes
+Pré-Condições:
+• O usuário selecionou a opção para registrar intenção.
+Pós-Condições:
+• Uma mensagem de confirmação é exibida ao usuário.
