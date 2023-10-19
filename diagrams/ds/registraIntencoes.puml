@@ -1,0 +1,36 @@
+@startuml
+activate "u1: Usuário"
+
+"u1: Usuário" -> "ctrl: CtrlSistema": abreAplicativo()
+activate "ctrl: CtrlSistema"
+
+"u1: Usuário" -> "ctrl: CtrlSistema": navegaParaSecaoEventosOuLocais()
+
+alt Usuário não autenticado
+    "ctrl: CtrlSistema" --> "u1: Usuário": solicitaAutenticacao()
+    "u1: Usuário" -> "ctrl: CtrlSistema": fazerLoginOuCriarConta()
+else Usuário autenticado
+end
+
+"u1: Usuário" -> "ctrl: CtrlSistema": selecionaEventoOuLugar(id)
+alt Evento ou Lugar existente e disponível
+    "ctrl: CtrlSistema" --> "u1: Usuário": exibeDetalhesEventoOuLugar(nome, descrição, data, horário, localização)
+else Evento ou Lugar não existente ou não disponível
+    "ctrl: CtrlSistema" --> "u1: Usuário": exibeMensagemErro()
+    "u1: Usuário" -> "ctrl: CtrlSistema": retornaParaPaginaAnterior()
+end
+
+"u1: Usuário" -> "ctrl: CtrlSistema": decideRegistrarIntencao()
+
+alt Cancelar intenção
+    "u1: Usuário" -> "ctrl: CtrlSistema": selecionarOpcaoCancelarIntencao()
+else Registrar intenção
+    "u1: Usuário" -> "ctrl: CtrlSistema": selecionarOpcaoRegistrarIntencao()
+    "ctrl: CtrlSistema" -> "ctrl: CtrlSistema": registraIntencao()
+    "ctrl: CtrlSistema" -> "ctrl: CtrlSistema": atualizaInformacoesEventoOuLugar()
+    "ctrl: CtrlSistema" --> "u1: Usuário": exibeConfirmacaoRegistroIntencao()
+end
+
+deactivate "ctrl: CtrlSistema"
+deactivate "u1: Usuário"
+@enduml
