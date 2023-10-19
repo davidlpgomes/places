@@ -1,0 +1,16 @@
+@startuml
+Empresa -> Sistema: verListaDeLocaiseEventos()
+Sistema --> Empresa: lista de locais e eventos
+
+Empresa -> Sistema: impulsionarLocalOuEvento(id)
+Sistema --> Empresa: planos
+
+Empresa -> Sistema: selecionarPlano(plano)
+Sistema --> Empresa: formasDePagamento
+
+Empresa -> Sistema: selecionaFormaDePagamento(forma)
+
+Empresa -> Sistema: pagar()
+Sistema --> Empresa: Sucesso
+
+@enduml
