@@ -1,0 +1,12 @@
+@startuml
+Empresa -> Sistema: selecionaEditarEvento()
+Sistema --> Empresa: Formulário com dados do evento
+
+Empresa -> Sistema: editarCampos(id, campos)
+Sistema --> Empresa: solicitação de confirmação
+
+Empresa -> Sistema: confirmarEdição(id)
+Sistema --> Empresa: Notifica usuários
+
+
+@enduml
