@@ -1,0 +1,23 @@
+@startuml
+Usuário -> Sistema: getLocaisEventos()
+Sistema --> Usuário: locais e eventos
+
+Usuário -> Sistema: getAmigos(usuario)
+
+alt Usuário autenticado
+    Sistema --> Usuário: amigos
+else Usuário não autenticado
+    Sistema --> Usuário: erro
+    Usuário -> Sistema: retornar()
+end
+
+Usuário -> Sistema: compartilharLocalEvento(id, tipo, amigos)
+
+alt Usuário possui amigo(s)
+     Sistema --> Usuário: sucesso
+else Usuário não possui amizade
+     Sistema --> Usuário: erro
+     Usuário -> Sistema: retornar()
+end
+
+@enduml
