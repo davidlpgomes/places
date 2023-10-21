@@ -1,0 +1,49 @@
+@startuml
+activate "u1: Usuário"
+"u1: Usuário" -> "ctrl: CtrlLocaisEventos": getLocaisEventos()
+
+activate "ctrl: CtrlLocaisEventos"
+"ctrl: CtrlLocaisEventos" --> "u1: Usuário": locais, eventos
+
+deactivate "ctrl: CtrlLocaisEventos"
+
+"u1: Usuário" -> "ctrl: CtrlUsuário": getAmigos(u1)
+activate "ctrl: CtrlUsuário"
+
+alt Usuário autenticado
+"ctrl: CtrlUsuário" --> "u1: Usuário": amigos
+else Usuário não autenticado
+"ctrl: CtrlUsuário" --> "u1: Usuário": erro
+end
+
+"u1: Usuário" -> "ctrl: CtrlUsuário": compartilharLocalEvento(id, tipo, amigos)
+
+alt tipo == Local
+"ctrl: CtrlUsuário" -> "ctrlLoc: CtrlLocal": getLocalById(id)
+activate "ctrlLoc: CtrlLocal"
+"ctrlLoc: CtrlLocal" --> "ctrl: CtrlUsuário": entidade = local
+deactivate "ctrlLoc: CtrlLocal"
+else tipo == Evento
+"ctrl: CtrlUsuário" -> "ctrlEv: CtrlEvento": getEventoById(id)
+activate "ctrlEv: CtrlEvento"
+"ctrlEv: CtrlEvento" --> "ctrl: CtrlUsuário": entidade = evento
+deactivate "ctrlEv: CtrlEvento"
+end
+
+loop para cada amigo em amigos
+"ctrl: CtrlUsuário" -> "amigo: Usuário": compartilhar(u1, amigo, entidade)
+activate "amigo: Usuário"
+"amigo: Usuário" -> "amigo: Usuário": notificar()
+"amigo: Usuário" --> "ctrl: CtrlUsuário": sucesso
+deactivate "amigo: Usuário"
+end
+
+alt Usuário possui amigos
+"ctrl: CtrlUsuário" --> "u1: Usuário": sucesso
+else Usuário não possui amizade
+"ctrl: CtrlUsuário" --> "u1: Usuário": erro
+end
+
+deactivate "ctrl: CtrlUsuário"
+deactivate "u1: Usuário"
+@enduml
