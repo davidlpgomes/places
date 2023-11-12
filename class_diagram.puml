@@ -1,0 +1,212 @@
+@startuml
+' PlantUML style configuration
+skinparam classAttributeIconSize 0
+skinparam class {
+  BackgroundColor White
+  BorderColor Gray
+}
+
+
+package "Model" {
+
+' Classes declarations
+
+class Address {
+  - country: String
+  - state: String
+  - city: String
+  - neighborhood: String
+  - street: String
+  - number: unsigned int
+  - complement: String
+  - cep: unsigned int
+}
+
+class User {
+  - email: String
+  - password: String
+  - phoneNumber: String
+  - name: String
+  - address: Address
+  - creationDate: ptime
+}
+
+class Person {
+  - userName: String
+  - cpf: int
+  - birthDate: ptime
+}
+
+class Company {
+  - cnpj: long unsigned int
+}
+
+class Place {
+  - owner: Company
+  - name: String
+  - description: String
+  - phoneNumber: String
+  - address: Address
+  - capacity: unsigned int
+}
+
+class PlaceOccupation {
+  - place: Place
+  - date: ptime
+  - numberOfPeople: unsigned int
+}
+
+class PlaceSchedule {
+  - place: Place
+  - begin: ptime
+  - end: ptime
+}
+
+class Event {
+  - owner: User
+  - place: Place
+  - name: String
+  - description: String
+  - begin: ptime
+  - end: ptime
+  - expectation: unsigned int
+}
+
+class SalePromotion {
+  - place: Place
+  - discount: unsigned char
+  - startDate: ptime
+  - endDate: ptime
+  - valid: bool
+}
+
+class PlaceBoost {
+  - place: Place
+  - payment: Payment
+  - startDate: ptime
+  - endDate: ptime
+  - valid: bool
+}
+
+class Payment {
+  - date: ptime
+  - value: unsigned int
+  - method: PaymentMethodEnum
+  - status: PaymentStatusEnum
+}
+
+enum PaymentMethodEnum {
+  CREDIT_CARD
+  BOLETO
+}
+
+enum PaymentStatusEnum {
+  CANCELED
+  IN_PROGRESS
+  SUCCESS
+}
+
+
+class Review {
+  - writer: Person
+  - place: Place
+  - review: String
+  - rating: unsigned char
+  - date: ptime
+}
+
+
+' Generalizations
+
+User <|-- Person
+User <|-- Company
+
+
+' Associations
+
+User "1" o-- "1" Address: possui >
+
+Person "0..*" -- "0..*" Company: segue >
+Person "0..*" -- "0..*" Person: é amigo de >
+Person "0..*" -- "0..*" Person: convida >
+Person "0..*" -- "0..*" Event: intenção >
+
+Event "0..*" -- "1" Place: acontece em >
+
+Company "1" -- "0..*" Place: possui >
+
+Company "1" -- "0..*" Event: possui >
+Person "1" -- "0..*" Event: possui >
+
+Place "1" o-- "1" Address: possui >
+
+PlaceSchedule "0..*" o-- "1" Place: possui >
+PlaceOccupation "0..*" o-- "1" Place: possui >
+
+SalePromotion "0..*" o-- "1" Place: desconto em >
+
+PlaceBoost "0..*" o-- "1" Place: impulsiona >
+PlaceBoost "1" o-- "1" Payment: possui >
+
+Payment -- PaymentMethodEnum
+Payment -- PaymentStatusEnum
+
+Review "0..*" -- "1" Person: escrita por >
+Review "0..*" -- "1" Place: escrita sobre >
+
+}
+
+package Controller {
+
+' Classes declarations
+
+class UserController {
+  ---
+  + login(email: String, password: String): bool
+  ---
+  + updatePassword(oldPassword: String, newPassword: String): bool
+  + updatePhoneNumber(newPhoneNumber: String): bool
+  + updateName(newName: String): bool
+  + updateAddress(newAddress: Address): bool
+}
+
+class PersonController {
+  ---
+  + updateUserName(newUserName: String): bool
+  ---
+  + getPeople(search: String = null): Vector<Person>
+  ---
+  + getFriends(person: Person): Vector<Person>
+  + getFriendRequests(person: Person): Vector<Person>
+  + sendFriendship(sender: Person, receiver: Person): bool
+  + acceptFriendship(person: Person, sender: Person): bool
+  + declineFriendship(person: Person, sender: Person): bool
+  + unfriend(person: Person, friend: Person): bool
+  ---
+  + inviteFriend(person: Person, friend: Person, event: Event): bool
+  + followPlace(person: Person, place: Place): bool
+}
+
+class CompanyController {
+}
+
+class PlaceController {
+  + getPlaces(search: String = null): Vector<Places>
+  + getRating(place: Place): float
+  + getNumberOfFollowers(place: Place): unsigned int
+}
+
+class EventControlller {
+  + addEventIntention(person: Person, event: Event): bool
+  + addEventPresence(person: Person, event: Event): bool
+}
+
+class ReviewController {
+  + addReview(person: Person, place: Place, text: String, rating: unsigned char): bool
+  + getPlaceReviews(place: Place): Vector<Review>
+}
+
+}
+
+' The End.
+@enduml
