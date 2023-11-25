@@ -2,18 +2,23 @@
 
 using namespace places;
 
-SalePromotion::SalePromotion()
-    : discount(0),
-      startDate(boost::posix_time::not_a_date_time),
-      endDate(boost::posix_time::not_a_date_time),
-      valid(false) {}
+SalePromotion::SalePromotion():
+    discount(0),
+    startDate(boost::posix_time::not_a_date_time),
+    endDate(boost::posix_time::not_a_date_time),
+    valid(false) {
+}
 
-SalePromotion::SalePromotion(const unsigned char discount,
-                             const boost::posix_time::ptime &startDate,
-                             const boost::posix_time::ptime &endDate)
-    : discount(discount), startDate(startDate), endDate(endDate), valid(true) {}
+SalePromotion::SalePromotion(
+    const unsigned char discount,
+    const boost::posix_time::ptime &startDate,
+    const boost::posix_time::ptime &endDate
+): discount(discount), startDate(startDate), endDate(endDate), valid(true) {
+}
 
-unsigned char SalePromotion::getDiscount() const { return discount; }
+unsigned char SalePromotion::getDiscount() const {
+    return discount;
+}
 
 void SalePromotion::setDiscount(const unsigned char discount) {
     this->discount = discount;
@@ -41,10 +46,13 @@ void SalePromotion::setEndDate(const boost::posix_time::ptime &endDate) {
     return;
 }
 
-bool SalePromotion::isValid() const { return valid; }
+bool SalePromotion::isValid() const {
+    return valid;
+}
 
 void SalePromotion::setValid(const bool valid) {
     this->valid = valid;
 
     return;
 }
+

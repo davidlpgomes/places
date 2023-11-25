@@ -4,9 +4,11 @@ using namespace places;
 
 PlaceSchedule::PlaceSchedule() {}
 
-PlaceSchedule::PlaceSchedule(const boost::posix_time::ptime &begin,
-                             const boost::posix_time::ptime &end)
-    : begin(begin), end(end) {}
+PlaceSchedule::PlaceSchedule(
+    const boost::posix_time::ptime &begin,
+    const boost::posix_time::ptime &end
+): begin{begin}, end{end} {
+}
 
 const boost::posix_time::ptime &PlaceSchedule::getBegin() const {
     return this->begin;
@@ -27,3 +29,4 @@ void PlaceSchedule::setEnd(const boost::posix_time::ptime &end) {
 
     return;
 }
+

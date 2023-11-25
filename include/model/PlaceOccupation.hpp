@@ -3,25 +3,31 @@
 
 #include <boost/date_time/posix_time/posix_time.hpp>
 
+
 namespace places {
+
 class PlaceOccupation {
-   public:
-    PlaceOccupation();
-    PlaceOccupation(const boost::posix_time::ptime &date,
-                    unsigned int occupation);
+    public:
+        PlaceOccupation();
 
-    virtual ~PlaceOccupation() = default;
+        PlaceOccupation(
+            const boost::posix_time::ptime &date,
+            unsigned int occupation
+        );
 
-    const boost::posix_time::ptime &getDate() const;
-    void setDate(const boost::posix_time::ptime &date);
+        virtual ~PlaceOccupation() = default;
 
-    unsigned int getOccupation() const;
-    void setOccupation(const unsigned int occupation);
+        const boost::posix_time::ptime &getDate() const;
+        void setDate(const boost::posix_time::ptime &date);
 
-   private:
-    boost::posix_time::ptime date;
-    unsigned int occupation;
-    
+        unsigned int getOccupation() const;
+        void setOccupation(const unsigned int occupation);
+
+    private:
+        boost::posix_time::ptime date;
+        unsigned int occupation; 
 };
-}  // namespace places
+
+} // namespace places
+
 #endif

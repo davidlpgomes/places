@@ -4,30 +4,36 @@
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <string>
 
+
 namespace places {
+
 class Review {
-   public:
-    Review();
-    Review(const std::string &comment, const unsigned char rating,
-           const boost::posix_time::ptime &date);
+    public:
+        Review();
 
-    virtual ~Review() = default;
+        Review(
+            const std::string &comment,
+            const unsigned char rating,
+            const boost::posix_time::ptime &date
+        );
 
-    const std::string &getComment() const;
-    void setComment(const std::string &comment);
+        virtual ~Review() = default;
 
-    unsigned char getRating() const;
-    void setRating(const unsigned char rating);
+        const std::string &getComment() const;
+        void setComment(const std::string &comment);
 
-    const boost::posix_time::ptime &getDate() const;
-    void setDate(const boost::posix_time::ptime &date);
+        unsigned char getRating() const;
+        void setRating(const unsigned char rating);
 
-   private:
-    std::string comment;
-    unsigned char rating;
-    boost::posix_time::ptime date;
+        const boost::posix_time::ptime &getDate() const;
+        void setDate(const boost::posix_time::ptime &date);
+
+    private:
+        std::string comment;
+        unsigned char rating;
+        boost::posix_time::ptime date;
 };
 
-}  // namespace places
+} // namespace places
 
 #endif
