@@ -1,4 +1,4 @@
-@startuml places
+@startuml
 ' PlantUML style configuration
 skinparam classAttributeIconSize 0
 skinparam class {
@@ -126,20 +126,20 @@ User <|-- Company
 
 User "1" -- "1" Address: possui >
 
-Person "0..*" -- "0..*" Company: segue >
-Person "0..*" -- "0..*" Event: intenção >
-Person "0..*" -- "0..*" Person
-(Person, Person) .. Friendship
-
-Person "0..*" -- "0..*" Person
-(Person, Person) .. Invite
-
 Event "0..*" -- "1" Place: acontece em >
 
 Company "1" -- "0..*" Place: possui >
 
 Company "1" -- "0..*" Event: possui >
 Person "1" -- "0..*" Event: possui >
+Person "0..*" -- "0..*" Company: segue >
+Person "0..*" -- "0..*" Event: intenção >
+Person "0..*" -- "0..*" Person
+(Person, Person) .. Friendship
+Person "0..*" -- "0..*" Person
+(Person, Person) .. Invite
+Person "0..*" -- "0..*" Place: está em >
+
 
 Place "1" -- "1" Address: possui >
 
@@ -150,6 +150,7 @@ SalePromotion "0..*" -- "1" Place: desconto em >
 
 PlaceBoost "0..*" -- "1" Place: impulsiona >
 PlaceBoost "1" -- "1" Payment: possui >
+
 
 Invite "0..*" -- "1" Event: é para >
 
@@ -193,6 +194,8 @@ class PersonController {
 }
 
 class CompanyController {
+  + boost(place: Place): bool
+  + setOccupation(occupation: unsigned int): bool
 }
 
 class PlaceController {
