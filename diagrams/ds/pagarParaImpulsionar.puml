@@ -1,0 +1,33 @@
+@startuml
+participant Empresa as E
+participant "repo: LocaiseEventos" as LE
+participant "impul: Impulsionamento" as I
+participant "pgmt: Pagamento" as P
+
+activate E
+E -> LE: lista = getListaDeLocaiseEventos()
+activate LE
+deactivate LE
+
+E -> LE: impulsionarLocalOuEvento(id)
+activate LE
+
+create I
+LE --> I: <<create>> criarImpulsionamento(id, plano)
+activate I
+I --> LE
+deactivate I
+deactivate LE
+
+E -> I: selecionarFormaDePagamento(forma)
+activate I
+
+create P
+I --> P: <<create>> criarPagamento(forma)
+activate P
+P --> I
+deactivate P
+
+deactivate I
+deactivate E
+@enduml
