@@ -13,8 +13,8 @@ User::User(
     const std::string &phoneNumber,
     const std::string &name,
     const Address &address
-): email(email), password(password), phoneNumber(phoneNumber), name(name),
-   address(address) {
+): email{email}, password{password}, phoneNumber{phoneNumber}, name{name},
+   address{address} {
        this->creationDate = boost::posix_time::second_clock::local_time();
 }
 

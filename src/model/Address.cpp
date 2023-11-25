@@ -13,8 +13,8 @@ Address::Address(
     const std::string &street,
     unsigned int number,
     unsigned int cep
-): country(country), state(state), city(city), neighborhood(neighborhood),
-   street(street), number(number), cep(cep) {
+): country{country}, state{state}, city{city}, neighborhood{neighborhood},
+   street{street}, number{number}, cep{cep} {
 }
 
 const std::string &Address::getCountry() const {
