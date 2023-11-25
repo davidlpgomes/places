@@ -124,7 +124,7 @@ User <|-- Company
 
 ' Associations
 
-User "1" o-- "1" Address: possui >
+User "1" -- "1" Address: possui >
 
 Person "0..*" -- "0..*" Company: segue >
 Person "0..*" -- "0..*" Person: é amigo de >
@@ -138,15 +138,15 @@ Company "1" -- "0..*" Place: possui >
 Company "1" -- "0..*" Event: possui >
 Person "1" -- "0..*" Event: possui >
 
-Place "1" o-- "1" Address: possui >
+Place "1" -- "1" Address: possui >
 
-PlaceSchedule "0..*" o-- "1" Place: possui >
-PlaceOccupation "0..*" o-- "1" Place: possui >
+PlaceSchedule "0..*" -- "1" Place: possui >
+PlaceOccupation "0..*" -- "1" Place: possui >
 
-SalePromotion "0..*" o-- "1" Place: desconto em >
+SalePromotion "0..*" -- "1" Place: desconto em >
 
-PlaceBoost "0..*" o-- "1" Place: impulsiona >
-PlaceBoost "1" o-- "1" Payment: possui >
+PlaceBoost "0..*" -- "1" Place: impulsiona >
+PlaceBoost "1" -- "1" Payment: possui >
 
 Payment -- PaymentMethodEnum
 Payment -- PaymentStatusEnum
