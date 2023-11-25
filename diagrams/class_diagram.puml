@@ -1,4 +1,4 @@
-@startuml
+@startuml places
 ' PlantUML style configuration
 skinparam classAttributeIconSize 0
 skinparam class {
@@ -37,12 +37,20 @@ class Person {
   - birthDate: ptime
 }
 
+class Friendship {
+   - friendsSince: ptime
+}
+
+class Invite {
+   - timeOfInvite: ptime
+}
+
+
 class Company {
   - cnpj: long unsigned int
 }
 
 class Place {
-  - owner: Company
   - name: String
   - description: String
   - phoneNumber: String
@@ -51,20 +59,16 @@ class Place {
 }
 
 class PlaceOccupation {
-  - place: Place
   - date: ptime
   - numberOfPeople: unsigned int
 }
 
 class PlaceSchedule {
-  - place: Place
   - begin: ptime
   - end: ptime
 }
 
 class Event {
-  - owner: User
-  - place: Place
   - name: String
   - description: String
   - begin: ptime
@@ -73,7 +77,6 @@ class Event {
 }
 
 class SalePromotion {
-  - place: Place
   - discount: unsigned char
   - startDate: ptime
   - endDate: ptime
@@ -81,7 +84,6 @@ class SalePromotion {
 }
 
 class PlaceBoost {
-  - place: Place
   - payment: Payment
   - startDate: ptime
   - endDate: ptime
@@ -108,8 +110,6 @@ enum PaymentStatusEnum {
 
 
 class Review {
-  - writer: Person
-  - place: Place
   - review: String
   - rating: unsigned char
   - date: ptime
@@ -127,9 +127,12 @@ User <|-- Company
 User "1" -- "1" Address: possui >
 
 Person "0..*" -- "0..*" Company: segue >
-Person "0..*" -- "0..*" Person: é amigo de >
-Person "0..*" -- "0..*" Person: convida >
 Person "0..*" -- "0..*" Event: intenção >
+Person "0..*" -- "0..*" Person
+(Person, Person) .. Friendship
+
+Person "0..*" -- "0..*" Person
+(Person, Person) .. Invite
 
 Event "0..*" -- "1" Place: acontece em >
 
@@ -147,6 +150,8 @@ SalePromotion "0..*" -- "1" Place: desconto em >
 
 PlaceBoost "0..*" -- "1" Place: impulsiona >
 PlaceBoost "1" -- "1" Payment: possui >
+
+Invite "0..*" -- "1" Event: é para >
 
 Payment -- PaymentMethodEnum
 Payment -- PaymentStatusEnum
