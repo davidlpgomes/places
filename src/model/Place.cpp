@@ -1,5 +1,7 @@
 #include "../../include/model/Place.hpp"
 
+#include <iterator>
+
 
 using namespace places;
 
@@ -72,6 +74,48 @@ unsigned int Place::getCapacity() {
 
 void Place::setCapacity(unsigned int capacity) {
     this->capacity = capacity;
+
+    return;
+}
+
+void Place::addBoost(const PlaceBoost &boost) {
+    this->boosts.push_back(boost);
+
+    return;
+}
+
+void Place::addOccupation(const PlaceOccupation &occupation) {
+    this->occupations.push_back(occupation);
+
+    return;
+}
+
+void Place::addSchedule(const PlaceSchedule &schedule) {
+    this->schedules.push_back(schedule);
+
+    return;
+}
+
+void Place::removeSchedule(
+    boost::posix_time::ptime begin,
+    boost::posix_time::ptime end
+) {
+    std::vector<PlaceSchedule>::iterator it{this->schedules.begin()};
+
+    for (; it != this->schedules.end(); ++it)
+        if ((*it).getBegin() == begin && (*it).getEnd() == end)
+            break;
+
+    if (it == this->schedules.end())
+        return;
+
+    this->schedules.erase(it);
+
+    return;
+}
+
+void Place::addPromotion(const SalePromotion &promotion) {
+    this->promotions.push_back(promotion);
 
     return;
 }

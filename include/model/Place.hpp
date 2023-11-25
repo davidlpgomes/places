@@ -2,9 +2,14 @@
 #define PLACE_HPP
 
 #include <string>
+#include <vector>
 
 #include "Address.hpp"
 #include "Company.hpp"
+#include "PlaceBoost.hpp"
+#include "PlaceOccupation.hpp"
+#include "PlaceSchedule.hpp"
+#include "SalePromotion.hpp"
 
 
 namespace places {
@@ -42,6 +47,18 @@ class Place {
         unsigned int getCapacity();
         void setCapacity(unsigned int capacity);
 
+        void addBoost(const PlaceBoost &boost);
+
+        void addOccupation(const PlaceOccupation &occupation);
+
+        void addSchedule(const PlaceSchedule &schedule);
+        void removeSchedule(
+            boost::posix_time::ptime begin,
+            boost::posix_time::ptime end
+        );
+
+        void addPromotion(const SalePromotion &promotion);
+
     private:
         std::string name;
         std::string description;
@@ -51,6 +68,12 @@ class Place {
         Address address;
 
         unsigned int capacity;
+
+        std::vector<PlaceBoost> boosts;
+        std::vector<PlaceOccupation> occupations;
+        std::vector<PlaceSchedule> schedules;
+
+        std::vector<SalePromotion> promotions;
 };
 
 } // namespace places
