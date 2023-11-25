@@ -9,7 +9,7 @@ Person::Person(
     const std::string &userName,
     unsigned int cpf,
     const boost::posix_time::ptime &birthDate
-): userName(userName), cpf(cpf), birthDate(birthDate) {
+): userName{userName}, cpf{cpf}, birthDate{birthDate} {
 }
 
 const std::string &Person::getUserName() const {

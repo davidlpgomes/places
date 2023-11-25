@@ -3,7 +3,7 @@
 
 using namespace places;
 
-Company::Company(long unsigned int cnpj): cnpj(cnpj) {
+Company::Company(long unsigned int cnpj): cnpj{cnpj} {
 }
 
 long unsigned int Company::getCnpj() {

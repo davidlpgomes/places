@@ -12,8 +12,8 @@ Place::Place(
     Company *const company,
     const Address &address,
     unsigned int capacity
-): name(name), description(description), phoneNumber(phoneNumber),
-   company(company), address(address), capacity(capacity) {
+): name{name}, description{description}, phoneNumber{phoneNumber},
+   company{company}, address{address}, capacity{capacity} {
 }
 
 const std::string &Place::getName() const {
