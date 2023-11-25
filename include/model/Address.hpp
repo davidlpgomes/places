@@ -3,6 +3,7 @@
 
 #include <string>
 
+
 namespace places {
 
 class Address {
@@ -21,19 +22,19 @@ class Address {
 
         virtual ~Address() = default;
 
-        std::string getCountry() const;
+        const std::string &getCountry() const;
         void setCountry(const std::string &country);
 
-        std::string getState() const;
+        const std::string &getState() const;
         void setState(const std::string &state);
 
-        std::string getCity() const;
+        const std::string &getCity() const;
         void setCity(const std::string &city);
 
-        std::string getNeighborhood() const;
+        const std::string &getNeighborhood() const;
         void setNeighborhood(const std::string &neighborhood);
 
-        std::string getStreet() const;
+        const std::string &getStreet() const;
         void setStreet(const std::string &street);
 
         unsigned int getNumber();
@@ -42,7 +43,7 @@ class Address {
         unsigned int getCep();
         void setCep(unsigned int cep);
 
-        std::string getComplement() const;
+        const std::string &getComplement() const;
         void setComplement(const std::string &complement);
 
     private:

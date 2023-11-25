@@ -2,6 +2,7 @@
 
 #include <boost/date_time/posix_time/posix_time_types.hpp>
 
+
 using namespace places;
 
 User::User() {}
@@ -17,7 +18,7 @@ User::User(
        this->creationDate = boost::posix_time::second_clock::local_time();
 }
 
-std::string User::getEmail() const {
+const std::string &User::getEmail() const {
     return this->email;
 }
 
@@ -27,7 +28,7 @@ void User::setEmail(const std::string &email) {
     return;
 }
 
-std::string User::getPassword() const {
+const std::string &User::getPassword() const {
     return this->password;
 }
 
@@ -37,7 +38,7 @@ void User::setPassword(const std::string &password) {
     return;
 }
 
-std::string User::getPhoneNumber() const {
+const std::string &User::getPhoneNumber() const {
     return this->phoneNumber;
 }
 
@@ -47,7 +48,7 @@ void User::setPhoneNumber(const std::string &phoneNumber) {
     return;
 }
 
-std::string User::getName() const {
+const std::string &User::getName() const {
     return this->name;
 }
 
@@ -57,7 +58,7 @@ void User::setName(const std::string &name) {
     return;
 }
 
-Address User::getAddress() const {
+const Address &User::getAddress() const {
     return this->address;
 }
 
@@ -67,7 +68,7 @@ void User::setAddress(const Address &address) {
     return;
 }
 
-boost::posix_time::ptime User::getCreationDate() const {
+const boost::posix_time::ptime &User::getCreationDate() const {
     return this->creationDate;
 }
 
