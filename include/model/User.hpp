@@ -1,8 +1,8 @@
 #ifndef USER_HPP
 #define USER_HPP
 
-#include <string>
 #include <boost/date_time/posix_time/posix_time.hpp>
+#include <string>
 
 #include "Address.hpp"
 
@@ -23,22 +23,22 @@ class User {
 
         virtual ~User() = default;
 
-        std::string getEmail() const;
+        const std::string &getEmail() const;
         void setEmail(const std::string &email);
 
-        std::string getPassword() const;
+        const std::string &getPassword() const;
         void setPassword(const std::string &password);
 
-        std::string getPhoneNumber() const;
+        const std::string &getPhoneNumber() const;
         void setPhoneNumber(const std::string &phoneNumber);
 
-        std::string getName() const;
+        const std::string &getName() const;
         void setName(const std::string &name);
 
-        Address getAddress() const;
+        const Address &getAddress() const;
         void setAddress(const Address &address);
 
-        boost::posix_time::ptime getCreationDate() const;
+        const boost::posix_time::ptime &getCreationDate() const;
 
     private:
         std::string email;
@@ -51,6 +51,6 @@ class User {
         boost::posix_time::ptime creationDate;
 };
 
-}
+} // namespace places
 
 #endif

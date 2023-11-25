@@ -1,5 +1,6 @@
 #include "../../include/model/Address.hpp"
 
+
 using namespace places;
 
 Address::Address() {}
@@ -16,7 +17,7 @@ Address::Address(
    street(street), number(number), cep(cep) {
 }
 
-std::string Address::getCountry() const {
+const std::string &Address::getCountry() const {
     return this->country;
 }
 
@@ -26,7 +27,7 @@ void Address::setCountry(const std::string &country) {
     return;
 }
 
-std::string Address::getState() const {
+const std::string &Address::getState() const {
     return this->state;
 }
 
@@ -36,7 +37,7 @@ void Address::setState(const std::string &state) {
     return;
 }
 
-std::string Address::getCity() const {
+const std::string &Address::getCity() const {
     return this->city;
 }
 
@@ -46,7 +47,7 @@ void Address::setCity(const std::string &city) {
     return;
 }
 
-std::string Address::getNeighborhood() const {
+const std::string &Address::getNeighborhood() const {
     return this->neighborhood;
 }
 
@@ -56,7 +57,7 @@ void Address::setNeighborhood(const std::string &neighborhood) {
     return;
 }
 
-std::string Address::getStreet() const {
+const std::string &Address::getStreet() const {
     return this->street;
 }
 
@@ -86,7 +87,7 @@ void Address::setCep(unsigned int cep) {
     return;
 }
 
-std::string Address::getComplement() const {
+const std::string &Address::getComplement() const {
     return this->complement;
 }
 
