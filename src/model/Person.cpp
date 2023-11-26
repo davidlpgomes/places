@@ -8,8 +8,15 @@ Person::Person() {}
 Person::Person(
     const std::string &userName,
     unsigned int cpf,
-    const boost::posix_time::ptime &birthDate
-): userName{userName}, cpf{cpf}, birthDate{birthDate} {
+    const boost::posix_time::ptime &birthDate,
+    const std::string &email,
+    const std::string &password,
+    const std::string &phoneNumber,
+    const std::string &name,
+    const Address &address
+
+): User{email, password, phoneNumber, name, address}, 
+    userName{userName}, cpf{cpf}, birthDate{birthDate} {
 }
 
 const std::string &Person::getUserName() const {

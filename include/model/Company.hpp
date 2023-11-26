@@ -10,7 +10,15 @@ class Company : public User {
     public:
         Company();
 
-        Company(long unsigned int cpnj);
+        Company(
+            long unsigned int cpnj,
+            const std::string &email,
+            const std::string &password,
+            const std::string &phoneNumber,
+            const std::string &name,
+            const Address &address
+            
+        );
 
         virtual ~Company() = default;
 

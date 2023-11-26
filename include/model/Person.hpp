@@ -16,7 +16,12 @@ class Person : public User {
         Person(
             const std::string &userName,
             unsigned int cpf,
-            const boost::posix_time::ptime &birthDate
+            const boost::posix_time::ptime &birthDate,
+            const std::string &email,
+            const std::string &password,
+            const std::string &phoneNumber,
+            const std::string &name,
+            const Address &address
         );
 
         virtual ~Person() = default;
