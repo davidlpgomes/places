@@ -30,6 +30,8 @@ class Place {
 
         virtual ~Place() = default;
 
+        unsigned int getId() const;
+
         const std::string &getName() const;
         void setName(const std::string &name);
 
@@ -68,6 +70,9 @@ class Place {
         const std::vector<Review> &getReviews() const;
 
     private:
+        static unsigned int nextId;
+        unsigned int id;
+
         std::string name;
         std::string description;
         std::string phoneNumber;

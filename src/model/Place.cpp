@@ -5,7 +5,11 @@
 
 using namespace places;
 
-Place::Place(): company(nullptr) {}
+unsigned int Place::nextId{0};
+
+Place::Place(): id{nextId}, company(nullptr) {
+    Place::nextId++;
+}
 
 Place::Place(
     const std::string &name,
@@ -14,8 +18,14 @@ Place::Place(
     Company *const company,
     const Address &address,
     unsigned int capacity
-): name{name}, description{description}, phoneNumber{phoneNumber},
-   company{company}, address{address}, capacity{capacity} {
+): id{nextId}, name{name}, description{description},
+   phoneNumber{phoneNumber}, company{company}, address{address},
+   capacity{capacity} {
+    Place::nextId++;
+}
+
+unsigned int Place::getId() const {
+    return this->id;
 }
 
 const std::string &Place::getName() const {
