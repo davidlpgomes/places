@@ -3,12 +3,13 @@
 using namespace places;
 
 Review::Review(): rating(0) {}
+
 Review::Review(
     const std::string &comment,
     const unsigned char rating,
-    const boost::posix_time::ptime &date,
     Person *const person
-): comment{comment}, rating{rating}, date{date}, person{person} {
+): comment{comment}, rating{rating}, person{person} {
+    this->date = boost::posix_time::second_clock::local_time();
 }
 
 const std::string &Review::getComment() const {

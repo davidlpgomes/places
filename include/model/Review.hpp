@@ -16,7 +16,6 @@ class Review {
         Review(
             const std::string &comment,
             const unsigned char rating,
-            const boost::posix_time::ptime &date,
             Person *const person
         );
 
@@ -29,7 +28,6 @@ class Review {
         void setRating(const unsigned char rating);
 
         const boost::posix_time::ptime &getDate() const;
-        void setDate(const boost::posix_time::ptime &date);
 
         const Person *getPerson() const;
         void setPerson(Person *const person);
