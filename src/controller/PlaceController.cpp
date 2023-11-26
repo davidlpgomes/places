@@ -92,3 +92,46 @@ unsigned int PlaceController::getNumberOfFollowers() const {
     return counter;
 }
 
+bool PlaceController::addPlaceSchedule(const PlaceSchedule &schedule) {
+    this->place->addSchedule(schedule);
+
+    return true;
+}
+
+bool PlaceController::addPlaceSchedule(
+    const boost::posix_time::ptime begin,
+    const boost::posix_time::ptime end
+) {
+    PlaceSchedule schedule{PlaceSchedule{begin, end}};
+
+    return this->addPlaceSchedule(schedule);
+}
+
+bool PlaceController::addPlaceOccupation(const PlaceOccupation &occupation) {
+    this->place->addOccupation(occupation);
+
+    return true;
+}
+
+bool PlaceController::addPlaceOccupation(const unsigned int occupation) {
+    PlaceOccupation occ{PlaceOccupation{occupation}};
+
+    return this->addPlaceOccupation(occ);
+}
+
+bool PlaceController::addSalePromotion(const SalePromotion &promotion) {
+    this->place->addPromotion(promotion);
+
+    return true;
+}
+
+bool PlaceController::addSalePromotion(
+    const unsigned char discount,
+    const boost::posix_time::ptime &startDate,
+    const boost::posix_time::ptime &endDate
+) {
+    SalePromotion promotion{SalePromotion{discount, startDate, endDate}};
+
+    return this->addSalePromotion(promotion);
+}
+

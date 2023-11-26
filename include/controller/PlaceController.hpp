@@ -35,6 +35,25 @@ class PlaceController : public Controller {
 
         unsigned int getNumberOfFollowers() const;
 
+        bool addPlaceSchedule(const PlaceSchedule &schedule);
+
+        bool addPlaceSchedule(
+            const boost::posix_time::ptime begin,
+            const boost::posix_time::ptime end
+        );
+
+        bool addPlaceOccupation(const PlaceOccupation &occupation);
+
+        bool addPlaceOccupation(const unsigned int occupation);
+
+        bool addSalePromotion(const SalePromotion &promotion);
+
+        bool addSalePromotion(
+            const unsigned char discount,
+            const boost::posix_time::ptime &startDate,
+            const boost::posix_time::ptime &endDate
+        );
+
     private:
         Place *place;
 };
