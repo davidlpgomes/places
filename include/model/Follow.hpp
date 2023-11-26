@@ -10,20 +10,20 @@ class Follow {
     public:
         Follow(
             unsigned int personId,
-            unsigned int companyId
+            unsigned int placeId
         );
 
         virtual ~Follow() = default;
 
         unsigned int getPersonId();
 
-        unsigned int getCompanyId();
+        unsigned int getPlaceId();
 
         const boost::posix_time::ptime &getFollowDate() const;
 
     private:
         unsigned int personId;
-        unsigned int companyId;
+        unsigned int placeId;
 
         boost::posix_time::ptime followDate;
 };
