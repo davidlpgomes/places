@@ -5,7 +5,11 @@
 
 using namespace places;
 
-User::User() {}
+unsigned int User::nextId{0};
+
+User::User(): id{User::nextId} {
+    User::nextId++;
+}
 
 User::User(
     const std::string &email,
@@ -13,8 +17,10 @@ User::User(
     const std::string &phoneNumber,
     const std::string &name,
     const Address &address
-): email{email}, password{password}, phoneNumber{phoneNumber}, name{name},
-   address{address} {
+): id{User::nextId}, email{email}, password{password},
+   phoneNumber{phoneNumber}, name{name}, address{address} {
+       User::nextId++;
+
        this->creationDate = boost::posix_time::second_clock::local_time();
 }
 

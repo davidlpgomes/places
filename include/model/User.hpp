@@ -23,6 +23,8 @@ class User {
 
         virtual ~User() = default;
 
+        unsigned int getId();
+
         const std::string &getEmail() const;
         void setEmail(const std::string &email);
 
@@ -41,6 +43,9 @@ class User {
         const boost::posix_time::ptime &getCreationDate() const;
 
     private:
+        static unsigned int nextId;
+        unsigned int id;
+
         std::string email;
         std::string password;
         std::string phoneNumber;
