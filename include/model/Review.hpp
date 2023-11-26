@@ -4,6 +4,8 @@
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <string>
 
+#include "Person.hpp"
+
 
 namespace places {
 
@@ -14,7 +16,8 @@ class Review {
         Review(
             const std::string &comment,
             const unsigned char rating,
-            const boost::posix_time::ptime &date
+            const boost::posix_time::ptime &date,
+            Person *const person
         );
 
         virtual ~Review() = default;
@@ -28,10 +31,14 @@ class Review {
         const boost::posix_time::ptime &getDate() const;
         void setDate(const boost::posix_time::ptime &date);
 
+        const Person *getPerson() const;
+        void setPerson(Person *const person);
+
     private:
         std::string comment;
         unsigned char rating;
         boost::posix_time::ptime date;
+        Person *person;
 };
 
 } // namespace places
