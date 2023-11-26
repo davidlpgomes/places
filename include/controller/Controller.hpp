@@ -12,7 +12,7 @@ class Controller {
 
         virtual ~Controller() = default;
 
-    private:
+    protected:
         Database *db;
 };
 
