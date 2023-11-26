@@ -84,16 +84,32 @@ void Place::addBoost(const PlaceBoost &boost) {
     return;
 }
 
+const std::vector<PlaceBoost> &Place::getBoosts() const {
+    return this->boosts;
+}
+
+const PlaceBoost &Place::getLastBoost() const {
+    return this->boosts.back();
+}
+
 void Place::addOccupation(const PlaceOccupation &occupation) {
     this->occupations.push_back(occupation);
 
     return;
 }
 
+const std::vector<PlaceOccupation> &Place::getOccupations() const {
+    return this->occupations;
+}
+
 void Place::addSchedule(const PlaceSchedule &schedule) {
     this->schedules.push_back(schedule);
 
     return;
+}
+
+const std::vector<PlaceSchedule> &Place::getSchedules() const {
+    return this->schedules;
 }
 
 void Place::removeSchedule(
@@ -118,5 +134,15 @@ void Place::addPromotion(const SalePromotion &promotion) {
     this->promotions.push_back(promotion);
 
     return;
+}
+
+void Place::addReview(const Review &review) {
+    this->reviews.push_back(review);
+
+    return;
+}
+
+const std::vector<Review> &Place::getReviews() const {
+    return this->reviews;
 }
 

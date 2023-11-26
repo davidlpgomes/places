@@ -9,6 +9,7 @@
 #include "PlaceBoost.hpp"
 #include "PlaceOccupation.hpp"
 #include "PlaceSchedule.hpp"
+#include "Review.hpp"
 #include "SalePromotion.hpp"
 
 
@@ -48,16 +49,23 @@ class Place {
         void setCapacity(unsigned int capacity);
 
         void addBoost(const PlaceBoost &boost);
+        const std::vector<PlaceBoost> &getBoosts() const;
+        const PlaceBoost &getLastBoost() const;
 
         void addOccupation(const PlaceOccupation &occupation);
+        const std::vector<PlaceOccupation> &getOccupations() const;
 
         void addSchedule(const PlaceSchedule &schedule);
+        const std::vector<PlaceSchedule> &getSchedules() const;
         void removeSchedule(
             boost::posix_time::ptime begin,
             boost::posix_time::ptime end
         );
 
         void addPromotion(const SalePromotion &promotion);
+
+        void addReview(const Review &review);
+        const std::vector<Review> &getReviews() const;
 
     private:
         std::string name;
@@ -74,6 +82,8 @@ class Place {
         std::vector<PlaceSchedule> schedules;
 
         std::vector<SalePromotion> promotions;
+
+        std::vector<Review> reviews;
 };
 
 } // namespace places
