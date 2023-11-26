@@ -20,6 +20,8 @@ class CompanyController : public Controller {
 
         std::vector<Company*> getCompanies() const;
 
+        std::vector<Company*> getCompanies(const std::string &search) const;
+
     private:
         Company *company;
 };
