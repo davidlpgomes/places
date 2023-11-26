@@ -24,6 +24,10 @@ User::User(
        this->creationDate = boost::posix_time::second_clock::local_time();
 }
 
+unsigned int User::getId() const {
+    return this->id;
+}
+
 const std::string &User::getEmail() const {
     return this->email;
 }

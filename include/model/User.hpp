@@ -23,7 +23,7 @@ class User {
 
         virtual ~User() = default;
 
-        unsigned int getId();
+        unsigned int getId() const;
 
         const std::string &getEmail() const;
         void setEmail(const std::string &email);
