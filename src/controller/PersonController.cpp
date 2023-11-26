@@ -168,3 +168,23 @@ bool PersonController::unfriend(Person *const person) {
     return false;
 }
 
+bool PersonController::inviteFriend(Person *const person, Event *const event) {
+    Invite *invite{
+        new Invite{this->person->getId(), person->getId(), event}
+    };
+
+    this->db->addInvite(invite);
+
+    return true;
+}
+
+bool PersonController::followPlace(Place *const place) {
+    Follow *follow{
+        new Follow{this->person->getId(), place->getId()}
+    };
+
+    this->db->addFollow(follow);
+
+    return true;
+}
+

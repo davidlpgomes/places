@@ -34,6 +34,10 @@ class PersonController : public Controller {
 
         bool unfriend(Person *const person);
 
+        bool inviteFriend(Person *const person, Event *const event);
+
+        bool followPlace(Place *const place);
+
     private:
         Person *person;
 };
