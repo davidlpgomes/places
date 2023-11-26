@@ -8,8 +8,6 @@ namespace places {
 
 class SalePromotion {
     public:
-        SalePromotion();
-        
         SalePromotion(
             const unsigned char discount,
             const boost::posix_time::ptime &startDate,

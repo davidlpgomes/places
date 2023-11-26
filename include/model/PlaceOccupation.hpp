@@ -10,15 +10,11 @@ class PlaceOccupation {
     public:
         PlaceOccupation();
 
-        PlaceOccupation(
-            const boost::posix_time::ptime &date,
-            unsigned int occupation
-        );
+        PlaceOccupation(unsigned int occupation);
 
         virtual ~PlaceOccupation() = default;
 
         const boost::posix_time::ptime &getDate() const;
-        void setDate(const boost::posix_time::ptime &date);
 
         unsigned int getOccupation() const;
         void setOccupation(const unsigned int occupation);
