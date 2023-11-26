@@ -135,3 +135,27 @@ bool PlaceController::addSalePromotion(
     return this->addSalePromotion(promotion);
 }
 
+bool PlaceController::addPlaceBoost(const PlaceBoost &boost) {
+    this->place->addBoost(boost);
+
+    return true;
+}
+
+bool PlaceController::addPlaceBoost(
+    const boost::posix_time::ptime &startDate,
+    const boost::posix_time::ptime &endDate,
+    unsigned int value,
+    PaymentMethodEnum method
+) {
+    Payment payment{Payment{
+        value, method, PaymentStatusEnum::SUCCESS,
+        boost::posix_time::second_clock::local_time()
+    }};
+
+    PlaceBoost boost{PlaceBoost{
+        payment, startDate, endDate, true
+    }};
+
+    return this->addPlaceBoost(boost);
+}
+

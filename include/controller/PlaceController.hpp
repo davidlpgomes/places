@@ -54,6 +54,15 @@ class PlaceController : public Controller {
             const boost::posix_time::ptime &endDate
         );
 
+        bool addPlaceBoost(const PlaceBoost &boost);
+
+        bool addPlaceBoost(
+            const boost::posix_time::ptime &startDate,
+            const boost::posix_time::ptime &endDate,
+            unsigned int value,
+            PaymentMethodEnum method
+        );
+
     private:
         Place *place;
 };
