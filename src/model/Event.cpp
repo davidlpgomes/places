@@ -21,6 +21,10 @@ Event::Event(
     Event::nextId++;
 }
 
+unsigned int Event::getId() const {
+    return this->id;
+}
+
 const std::string &Event::getName() const {
     return this->name;
 }
