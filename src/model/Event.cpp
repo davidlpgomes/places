@@ -2,7 +2,11 @@
 
 using namespace places;
 
-Event::Event() {}
+unsigned int Event::nextId{0};
+
+Event::Event(): id{nextId} {
+    Event::nextId++;
+}
 
 Event::Event(
     const std::string &name,
@@ -12,8 +16,9 @@ Event::Event(
     const boost::posix_time::ptime &begin,
     const boost::posix_time::ptime &end,
     unsigned int expectation
-): name{name}, description{description}, owner{owner}, place{place},
-   begin{begin}, end{end}, expectation{expectation} {
+): id{nextId}, name{name}, description{description}, owner{owner},
+   place{place}, begin{begin}, end{end}, expectation{expectation} {
+    Event::nextId++;
 }
 
 const std::string &Event::getName() const {

@@ -26,6 +26,8 @@ class Event {
 
         virtual ~Event() = default;
 
+        unsigned int getId();
+
         const std::string &getName() const;
         void setName(const std::string &name);
 
@@ -48,6 +50,9 @@ class Event {
         void setExpectation(unsigned int expectation);
 
     private:
+        static unsigned int nextId;
+        unsigned int id;
+
         std::string name;
         std::string description;
 
