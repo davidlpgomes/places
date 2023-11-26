@@ -11,6 +11,21 @@ void PlaceController::setPlace(Place *const place) {
     return;
 }
 
+bool PlaceController::addPlace(
+    const std::string &name,
+    const std::string &description,
+    const std::string &phoneNumber,
+    Company *const company,
+    const Address &address,
+    unsigned int capacity
+) {
+    Place *place{new Place{
+        name, description, phoneNumber, company, address, capacity
+    }};
+
+    return this->addPlace(place);
+}
+
 bool PlaceController::addPlace(Place *const place) {
     if (place == nullptr)
         return false;

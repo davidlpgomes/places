@@ -14,6 +14,16 @@ class EventController : public Controller {
 
         void setEvent(Event *const event);
 
+        bool addEvent(
+            const std::string &name,
+            const std::string &description,
+            User *const owner,
+            Place *const place,
+            const boost::posix_time::ptime &begin,
+            const boost::posix_time::ptime &end,
+            unsigned int expectation
+        );
+
         bool addEvent(Event *const event);
 
         std::vector<Event*> getEvents() const;

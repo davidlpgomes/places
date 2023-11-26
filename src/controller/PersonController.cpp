@@ -11,6 +11,23 @@ void PersonController::setPerson(Person *const person) {
     return;
 }
 
+bool PersonController::addPerson(
+    const std::string &userName,
+    unsigned int cpf,
+    const boost::posix_time::ptime &birthDate,
+    const std::string &email,
+    const std::string &password,
+    const std::string &phoneNumber,
+    const std::string &name,
+    const Address &address
+) {
+    Person *person{new Person{
+        userName, cpf, birthDate, email, password, phoneNumber, name, address
+    }};
+
+    return this->addPerson(person);
+}
+
 bool PersonController::addPerson(Person *const person) {
     if (person == nullptr)
         return false;

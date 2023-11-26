@@ -13,6 +13,21 @@ void CompanyController::setCompany(Company *const company) {
     return;
 }
 
+bool CompanyController::addCompany(
+    long unsigned int cnpj,
+    const std::string &email,
+    const std::string &password,
+    const std::string &phoneNumber,
+    const std::string &name,
+    const Address &address
+) {
+    Company *company{new Company{
+        cnpj, email, password, phoneNumber, name, address
+    }};
+
+    return this->addCompany(company);
+}
+
 bool CompanyController::addCompany(Company *const company) {
     if (company == nullptr)
         return false;

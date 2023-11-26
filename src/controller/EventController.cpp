@@ -11,6 +11,22 @@ void EventController::setEvent(Event *const event) {
     return;
 }
 
+bool EventController::addEvent(
+    const std::string &name,
+    const std::string &description,
+    User *const owner,
+    Place *const place,
+    const boost::posix_time::ptime &begin,
+    const boost::posix_time::ptime &end,
+    unsigned int expectation
+) {
+    Event *event{
+        new Event{name, description, owner, place, begin, end, expectation}
+    };
+
+    return this->addEvent(event);
+}
+
 bool EventController::addEvent(Event *const event) {
     if (event == nullptr)
         return false;

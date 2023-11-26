@@ -14,6 +14,15 @@ class CompanyController : public Controller {
 
         void setCompany(Company *const company);
 
+        bool addCompany(
+            long unsigned int cpnj,
+            const std::string &email,
+            const std::string &password,
+            const std::string &phoneNumber,
+            const std::string &name,
+            const Address &address
+        );
+
         bool addCompany(Company *const company);
 
         Company *getCompanyById(unsigned int id) const;

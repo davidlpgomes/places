@@ -16,6 +16,15 @@ class PlaceController : public Controller {
 
         void setPlace(Place *const place);
 
+        bool addPlace(
+            const std::string &name,
+            const std::string &description,
+            const std::string &phoneNumber,
+            Company *const company,
+            const Address &address,
+            unsigned int capacity
+        );
+
         bool addPlace(Place *const place);
 
         std::vector<Place*> getPlaces() const;
