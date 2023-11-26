@@ -24,6 +24,16 @@ class PersonController : public Controller {
 
         std::vector<Person*> getFriends() const;
 
+        std::vector<Person*> getFriendRequets() const;
+
+        bool sendFriendship(Person *const receiver);
+
+        bool acceptFriendship(Person *const sender);
+
+        bool declineFriendship(Person *const sender);
+
+        bool unfriend(Person *const person);
+
     private:
         Person *person;
 };

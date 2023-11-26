@@ -78,3 +78,93 @@ std::vector<Person*> PersonController::getFriends() const {
     return friends;
 }
 
+std::vector<Person*> PersonController::getFriendRequets() const {
+    const std::vector<Friendship*> *friendships{this->db->getFriendships()};
+
+    std::vector<Person*> friends;
+
+    std::vector<Friendship*>::const_iterator it{friendships->begin()};
+
+    for (; it != friendships->end(); ++it)
+        if (
+            (*it)->getSecondPersonId() == this->person->getId() &&
+            (*it)->getStatus() == FriendshipStatusEnum::REQUEST_SENT
+        )
+            friends.push_back(getPersonById((*it)->getFirstPersonId()));
+
+    return friends;
+}
+
+bool PersonController::sendFriendship(Person *const receiver) {
+    Friendship *friendship{
+        new Friendship{this->person->getId(), receiver->getId()}};
+
+    this->db->addFriendship(friendship);
+
+    return true;
+}
+
+bool PersonController::acceptFriendship(Person *const sender) {
+    const std::vector<Friendship*> *friendships{this->db->getFriendships()};
+
+    std::vector<Friendship*>::const_iterator it{friendships->begin()};
+
+    for (; it != friendships->end(); ++it)
+        if (
+            (*it)->getSecondPersonId() == this->person->getId() &&
+            (*it)->getFirstPersonId() == sender->getId() &&
+            (*it)->getStatus() == FriendshipStatusEnum::REQUEST_SENT
+        ) {
+            (*it)->setStatus(FriendshipStatusEnum::FRIENDS);
+            return true;
+        }
+
+    return false;
+}
+
+bool PersonController::declineFriendship(Person *const sender) {
+    const std::vector<Friendship*> *friendships{this->db->getFriendships()};
+
+    std::vector<Friendship*>::const_iterator it{friendships->begin()};
+
+    for (; it != friendships->end(); ++it)
+        if (
+            (*it)->getSecondPersonId() == this->person->getId() &&
+            (*it)->getFirstPersonId() == sender->getId() &&
+            (*it)->getStatus() == FriendshipStatusEnum::REQUEST_SENT
+        ) {
+            (*it)->setStatus(FriendshipStatusEnum::REQUEST_DENIED);
+            return true;
+        }
+
+    return false;
+}
+
+bool PersonController::unfriend(Person *const person) {
+    const std::vector<Friendship*> *friendships{this->db->getFriendships()};
+
+    std::vector<Friendship*>::const_iterator it{friendships->begin()};
+
+    for (; it != friendships->end(); ++it) {
+        if (
+            (*it)->getFirstPersonId() == this->person->getId() &&
+            (*it)->getSecondPersonId() == person->getId() &&
+            (*it)->getStatus() == FriendshipStatusEnum::FRIENDS
+        ) {
+            (*it)->setStatus(FriendshipStatusEnum::REMOVED);
+            return true;
+        }
+
+        if (
+            (*it)->getSecondPersonId() == this->person->getId() &&
+            (*it)->getFirstPersonId() == person->getId() &&
+            (*it)->getStatus() == FriendshipStatusEnum::FRIENDS
+        ) {
+            (*it)->setStatus(FriendshipStatusEnum::REMOVED);
+            return true;
+        }
+    }
+
+    return false;
+}
+
