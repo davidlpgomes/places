@@ -12,9 +12,11 @@ class EventIntention {
 
         virtual ~EventIntention() = default;
 
-        unsigned int getEventId();
+        unsigned int getEventId() const;
 
-        unsigned int getPersonId();
+        unsigned int getPersonId() const;
+
+        bool operator<(const EventIntention &other) const;
 
     private:
         unsigned int eventId;
