@@ -1,4 +1,9 @@
 #include "../../include/view/PlacesView.hpp"
+#include "../../include/model/User.hpp"
+#include "../../include/model/Person.hpp"
+#include "../../include/model/Company.hpp"
+#include "../../include/controller/EventControler.hpp"
+
 
 #include <iostream>
 using namespace places;
@@ -49,3 +54,24 @@ void PlacesView::getInitialPage() {
     return;
 }
 
+void PlacesView::getUserInitialPage(Person *person){
+    std::cout << "" << person->getName()  << std::endl;
+    std::cout << "" << person->getCreationDate()  << std::endl;
+
+    // 
+
+}
+
+void PlacesView::getCompanyInitialPage(Company *company){
+    std::cout << company->getName()  << std::endl;
+    std::cout << company->getAddress().getCountry() << ", "
+              << company->getAddress().getState() << ", "
+              << company->getAddress().getCity() << ", "
+              << company->getAddress().getNeighborhood() << ", "
+              << company->getAddress().getStreet() << " \n" ;
+    std::cout << company->getPhoneNumber()  << std::endl;
+    EventControler evCont;
+
+    std::cout << "Digite 1 para impulsionar um local:" << std::endl;
+    // Impulsionar local
+}

@@ -3,6 +3,10 @@
 
 #include <string>
 #include "../../include/view/PlacesStatesEnum.hpp"
+#include "../../include/model/User.hpp"
+#include "../../include/model/Person.hpp"
+
+#include "../../include/model/Company.hpp"
 
 namespace places {
 
@@ -25,6 +29,9 @@ class PlacesView {
         void setViewState(ViewsStatesEnum viewState);
 
         void getInitialPage();
+        void getUserInitialPage(Person *person);
+        void getCompanyInitialPage(Company *company);
+
 
     private:
         unsigned int viewType;
