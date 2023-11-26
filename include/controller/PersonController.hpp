@@ -14,6 +14,8 @@ class PersonController : public Controller {
 
         virtual ~PersonController() = default;
 
+        void setPerson(Person *const person);
+
         bool addPerson(Person *const person);
 
         Person *getPersonById(unsigned int id) const;

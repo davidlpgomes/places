@@ -5,6 +5,12 @@ using namespace places;
 PersonController::PersonController(Person *const person): person{person} {
 }
 
+void PersonController::setPerson(Person *const person) {
+    this->person = person;
+
+    return;
+}
+
 bool PersonController::addPerson(Person *const person) {
     if (person == nullptr)
         return false;
