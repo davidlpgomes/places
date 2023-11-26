@@ -2,6 +2,8 @@
 #include <set>
 
 #include "../include/model/Database.hpp"
+#include "../include/view/PlacesView.hpp"
+#include "../include/view/PlacesStatesEnum.hpp"
 
 using namespace places;
 
@@ -36,8 +38,16 @@ int main() {
 
     std::multiset<EventIntention>::const_iterator it{eis->begin()};
 
-    for (; it != eis->end(); ++it)
-        std::cout << "e=" << (*it).getEventId() << " p=" << (*it).getPersonId() << std::endl;
+    PlacesView placesView{1, LOGIN};
+    placesView.getInitialPage();
+    
+    if (placesView.getViewType() == 1){
+        std::cout << "Tela Empresa" << std::endl;
+    }else {
+        std::cout << "Tela usuario" << std::endl;
+    }
+    // for (; it != eis->end(); ++it)
+        // std::cout << "e=" << (*it).getEventId() << " p=" << (*it).getPersonId() << std::endl;
 
     return 0;
 }
