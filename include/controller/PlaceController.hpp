@@ -22,6 +22,10 @@ class PlaceController : public Controller {
 
         std::vector<Place*> getPlaces(const std::string &search) const;
 
+        float getRating() const;
+
+        unsigned int getNumberOfFollowers() const;
+
     private:
         Place *place;
 };

@@ -53,3 +53,27 @@ std::vector<Place*> PlaceController::getPlaces(
     return places_vec;
 }
 
+float PlaceController::getRating() const {
+    float sum{0};
+
+    std::vector<Review>::const_iterator it{this->place->getReviews().begin()};
+
+    for (; it != this->place->getReviews().end(); ++it)
+        sum += (*it).getRating();
+
+    return sum / this->place->getReviews().size();
+}
+
+unsigned int PlaceController::getNumberOfFollowers() const {
+    const std::vector<Follow*> *follows = this->db->getFollows();
+
+    unsigned int counter{0};
+
+    std::vector<Follow*>::const_iterator it{follows->begin()};
+    for (; it != follows->end(); ++it)
+        if ((*it)->getPlaceId() == this->place->getId())
+            counter++;
+
+    return counter;
+}
+
