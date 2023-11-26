@@ -4,7 +4,8 @@
 using namespace places;
 
 Company::Company(
-    long unsigned int cnpj, const std::string &email,
+    long unsigned int cnpj,
+    const std::string &email,
     const std::string &password,
     const std::string &phoneNumber,
     const std::string &name,

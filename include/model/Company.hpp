@@ -11,13 +11,12 @@ class Company : public User {
         Company();
 
         Company(
-            long unsigned int cpnj,
+            long unsigned int cnpj,
             const std::string &email,
             const std::string &password,
             const std::string &phoneNumber,
             const std::string &name,
             const Address &address
-            
         );
 
         virtual ~Company() = default;
