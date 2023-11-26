@@ -47,7 +47,7 @@ void Database::addCompany(Company *const company) {
     return;
 }
 
-const std::map<int, Event*> *Database::getEvent() const {
+const std::map<int, Event*> *Database::getEvents() const {
     return this->events;
 }
 

@@ -30,7 +30,7 @@ class Database {
         const std::map<int, Company*> *getCompanies() const;
         void addCompany(Company *const company);
 
-        const std::map<int, Event*> *getEvent() const;
+        const std::map<int, Event*> *getEvents() const;
         void addEvent(Event *const event);
 
         const std::map<int, Place*> *getPlaces() const;
