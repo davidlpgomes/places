@@ -81,10 +81,10 @@ int main()
             placesView.getPlacePage(&place1, PLACE_REVIEWS);
             break;
         case USER_FRIENDS_REQUESTS:
-            // Lógica para USER_FRIENDS_REQUESTS
+            placesView.getUserFriendsPage(p1);
             break;
         case USER_FRIENDS_LIST:
-            // Lógica para USER_FRIENDS_LIST
+            placesView.getUserFriendsPage(p1);
             break;
         case EXIT:
             running = false;

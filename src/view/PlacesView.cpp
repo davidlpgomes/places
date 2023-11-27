@@ -67,7 +67,17 @@ void PlacesView::getUserInitialPage(Person *person)
 {
     std::cout << "" << person->getName() << std::endl;
     std::cout << "" << person->getCreationDate() << std::endl;
-
+    std::cout << "Digite 2 para verificar eventos e 3 para verificar revisões:" << std::endl;
+    unsigned int opcao;
+    std::cin >> opcao;
+    if (opcao == 2)
+    {
+        this->setViewState(PLACE_EVENTS);
+    }
+    else if (opcao == 3)
+    {
+        this->setViewState(PLACE_REVIEWS);
+    }
     //
 }
 
@@ -84,6 +94,16 @@ void PlacesView::getCompanyInitialPage(Company *company)
     EventController evCont(&event); 
 
     std::cout << "Digite 1 para impulsionar um local:" << std::endl;
+    unsigned int opcao;
+    std::cin >> opcao;
+    if (opcao == 1)
+    {
+        this->setViewState(PLACE_EVENTS);
+    }
+    else
+    {
+        this->setViewState(EXIT);
+    }
     // Impulsionar local
 }
 
@@ -111,10 +131,8 @@ void PlacesView::getPlacePage(Place *place, ViewsStatesEnum viewState)
     }
 
     std::cout << "Digite 2 para verificar eventos e 3 para verificar revisões:" << std::endl;
-    // Impulsionar local
     unsigned int opcao;
     std::cin >> opcao;
-
     if (opcao == 2)
     {
         this->setViewState(PLACE_EVENTS);
@@ -134,15 +152,6 @@ void PlacesView::getUserFriendsPage(Person *person)
     std::cin >> option;
     if (option == 1)
     {
-        this->setViewState(USER_FRIENDS_LIST);
-    }
-    if (option == 2)
-    {
-        this->setViewState(USER_FRIENDS_REQUESTS);
-    }
-
-   if (option == 1)
-    {
         std::vector<Person*> friends = personCont.getFriends(); 
 
         std::cout << "Lista de Amigos:\n";
@@ -150,10 +159,12 @@ void PlacesView::getUserFriendsPage(Person *person)
         {
             std::cout << friendItem->getName() << std::endl;
         }
+        this->setViewState(USER_FRIENDS_LIST);
     }
-    else if (option == 2)
+    if (option == 2)
     {
         personCont.getFriendRequets();
-        // print friends requests
+        this->setViewState(USER_FRIENDS_REQUESTS);
     }
+
 }
