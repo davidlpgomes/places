@@ -3,6 +3,8 @@
 #include "../include/view/PlacesStatesEnum.hpp"
 #include <iostream>
 #include <set>
+#include <random>
+#include <chrono>
 
 using namespace places;
 
@@ -25,7 +27,7 @@ int main()
         Address address("Country" + std::to_string(i), "State" + std::to_string(i),
                         "City" + std::to_string(i), "Neighborhood" + std::to_string(i),
                         std::to_string(i) + " Main St", i, 10000 + i);
-        
+
         // Instância Place para cada Address
         Place *place = new Place();
         place->setName("Place " + std::to_string(i));
@@ -70,6 +72,15 @@ int main()
 
     bool running = true;
 
+    // Gerador de números aleatórios
+    std::default_random_engine generator(std::chrono::system_clock::now().time_since_epoch().count());
+    std::uniform_int_distribution<int> distribution(0, companies.size() - 1);
+    // Gera um índice aleatório
+    int randomIndex = distribution(generator); 
+    // Acessa o determinado valor
+    Company *companyRandom = companies[randomIndex];
+    Person *personRandom = persons[randomIndex];
+
     while (running)
     {
         switch (placesView.getViewState())
@@ -78,28 +89,16 @@ int main()
             placesView.getInitialPage();
             break;
         case COMPANY_INITIAL_PAGE:
-            if (!companies.empty())
-            {
-                placesView.getCompanyInitialPage(companies[0]);
-            }
+                placesView.getCompanyInitialPage(companyRandom);
             break;
         case USER_INITIAL_PAGE:
-            if (!persons.empty())
-            {
-                placesView.getUserInitialPage(persons[0]);
-            }
+                placesView.getUserInitialPage(personRandom);
             break;
         case USER_FRIENDS_REQUESTS:
-            if (!persons.empty())
-            {
-                placesView.getUserFriendsPage(persons[0]);
-            }
+                placesView.getUserFriendsPage(personRandom);
             break;
         case USER_FRIENDS_LIST:
-            if (!persons.empty())
-            {
-                placesView.getUserFriendsPage(persons[0]);
-            }
+                placesView.getUserFriendsPage(personRandom);
             break;
         case PLACE_DESCRIPTION:
             placesView.getPlacePage(&place1, PLACE_DESCRIPTION);
