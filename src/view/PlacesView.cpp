@@ -5,6 +5,8 @@
 #include "../../include/model/Place.hpp" 
 #include "../../include/controller/EventController.hpp"
 #include "../../include/controller/PersonController.hpp"
+#include "../../include/controller/PlaceController.hpp"
+
 #include <vector>
 #include <iostream>
 
@@ -67,16 +69,17 @@ void PlacesView::getUserInitialPage(Person *person)
 {
     std::cout << "" << person->getName() << std::endl;
     std::cout << "" << person->getCreationDate() << std::endl;
-    std::cout << "Digite 2 para verificar eventos e 3 para verificar revisões:" << std::endl;
+    std::cout << "Digite 2 para visualizar a pagina de amigos e 3 para buscar eventos:" << std::endl;
     unsigned int opcao;
     std::cin >> opcao;
     if (opcao == 2)
     {
-        this->setViewState(PLACE_EVENTS);
+        this->setViewState(USER_FRIENDS_LIST);
     }
     else if (opcao == 3)
     {
-        this->setViewState(PLACE_REVIEWS);
+        this->setViewState(PLACE_DESCRIPTION);
+        
     }
     //
 }
@@ -113,9 +116,10 @@ void PlacesView::getPlacePage(Place *place, ViewsStatesEnum viewState)
     {
         // place description
         // print place description
-        place->getAddress();
-        place->getPhoneNumber();
-        place->getDescription();
+        std::cout << place->getAddress().getStreet()<< std::endl;
+        std::cout << place->getPhoneNumber() << std::endl;
+        std::cout << place->getDescription() << std::endl;
+
     }
     else if (viewState == PLACE_EVENTS)
     {
@@ -127,10 +131,17 @@ void PlacesView::getPlacePage(Place *place, ViewsStatesEnum viewState)
     {
         // place reviews
         const std::vector<Review> reviews = place->getReviews();
-        // print place reviews
+        std::cout << "Lista de Avaliações:\n";
+        for (const auto &revieItem : reviews) 
+        {
+            std::cout << revieItem.getRating() << std::endl;
+            std::cout << revieItem.getComment() << std::endl;
+            std::cout << "\n" << std::endl;
+
+        }
     }
 
-    std::cout << "Digite 2 para verificar eventos e 3 para verificar revisões:" << std::endl;
+    std::cout << "Digite 2 para ver eventos no local e 3 para ver revisões do local, 4 para voltar a pagina inicial:" << std::endl;
     unsigned int opcao;
     std::cin >> opcao;
     if (opcao == 2)
@@ -140,6 +151,8 @@ void PlacesView::getPlacePage(Place *place, ViewsStatesEnum viewState)
     else if (opcao == 3)
     {
         this->setViewState(PLACE_REVIEWS);
+    }else if(opcao == 4){
+        this->setViewState(USER_INITIAL_PAGE);
     }
 }
 
@@ -147,7 +160,7 @@ void PlacesView::getUserFriendsPage(Person *person)
 {
     PersonController personCont(person);
 
-    std::cout << "Digite 1 para visualizar lista e 2 para visualizar solicitações:" << std::endl;
+    std::cout << "Digite 1 para visualizar lista, 2 para visualizar solicitações, 3 para volta a pagina inicial:" << std::endl;
     unsigned int option;
     std::cin >> option;
     if (option == 1)
@@ -161,10 +174,20 @@ void PlacesView::getUserFriendsPage(Person *person)
         }
         this->setViewState(USER_FRIENDS_LIST);
     }
-    if (option == 2)
+    else if (option == 2)
     {
-        personCont.getFriendRequets();
+        std::vector<Person*> friendsReq = personCont.getFriendRequets();
+        std::cout << "Lista de Solicitações:\n";
+        for (const auto &friendItem : friendsReq) 
+        {
+            std::cout << friendItem->getName() << std::endl;
+        }
+
         this->setViewState(USER_FRIENDS_REQUESTS);
     }
+    else if (option == 3){
+        this->setViewState(USER_INITIAL_PAGE);
+    }
+
 
 }

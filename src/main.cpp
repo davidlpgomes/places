@@ -33,6 +33,8 @@ int main()
         Place *place = new Place();
         place->setName("Place " + std::to_string(i));
         place->setAddress(address);
+        place->setPhoneNumber("4112345678");
+        place->setDescription("Esse evento vai ser show, começa 22h"); 
 
         // Instância Company
         Company *company = new Company(123000 + i, "email" + std::to_string(i) + "@example.com",
@@ -103,13 +105,13 @@ int main()
                 placesView.getUserFriendsPage(personRandom);
             break;
         case PLACE_DESCRIPTION:
-            placesView.getPlacePage(&place1, PLACE_DESCRIPTION);
+            placesView.getPlacePage(places[1], PLACE_DESCRIPTION);
             break;
         case PLACE_EVENTS:
-            placesView.getPlacePage(&place1, PLACE_EVENTS);
+            placesView.getPlacePage(places[1], PLACE_EVENTS);
             break;
         case PLACE_REVIEWS:
-            placesView.getPlacePage(&place1, PLACE_REVIEWS);
+            placesView.getPlacePage(places[1], PLACE_REVIEWS);
             break;
         case EXIT:
             running = false;
