@@ -6,6 +6,9 @@
 #include "../../include/controller/EventController.hpp"
 #include "../../include/controller/PersonController.hpp"
 #include "../../include/controller/PlaceController.hpp"
+#include "../../include/controller/CompanyController.hpp"
+
+
 
 #include <vector>
 #include <iostream>
@@ -96,12 +99,26 @@ void PlacesView::getCompanyInitialPage(Company *company)
     Event event; 
     EventController evCont(&event); 
 
-    std::cout << "Digite 1 para impulsionar um local:" << std::endl;
+
+    std::cout << "Seus eventos:" << std::endl;
+    
+    vector<Event *> events = evCont.getEvents();
+    for (const auto &evItem : events) 
+    {
+        std::cout << evItem->getName() << std::endl;
+        std::cout << evItem->getDescription() << std::endl;
+        std::cout << evItem->getBegin() << " - " << evItem->getEnd() << std::endl;
+
+        std::cout << "\n" << std::endl;
+    }
+    std::cout << "Digite 1 para impulsionar um evento:" << std::endl;
     unsigned int opcao;
     std::cin >> opcao;
     if (opcao == 1)
     {
         this->setViewState(PLACE_EVENTS);
+        std::cout << "Evento impulsionado!" << std::endl;
+        
     }
     else
     {
@@ -123,8 +140,17 @@ void PlacesView::getPlacePage(Place *place, ViewsStatesEnum viewState)
     }
     else if (viewState == PLACE_EVENTS)
     {
-        // place events
-        place->getBoosts();
+        Event event; 
+        EventController evCont(&event); 
+        vector<Event *> events = evCont.getEvents();
+        for (const auto &evItem : events) 
+        {
+            std::cout << evItem->getName() << std::endl;
+            std::cout << evItem->getDescription() << std::endl;
+            std::cout << evItem->getBegin() << " - " << evItem->getEnd() << std::endl;
+
+            std::cout << "\n" << std::endl;
+        }
         // print place events
     }
     else if (viewState == PLACE_REVIEWS)
@@ -160,7 +186,7 @@ void PlacesView::getUserFriendsPage(Person *person)
 {
     PersonController personCont(person);
 
-    std::cout << "Digite 1 para visualizar lista, 2 para visualizar solicitações, 3 para volta a pagina inicial:" << std::endl;
+    std::cout << "Digite 1 para visualizar lista, 2 para visualizar solicitações,3 para suas intenções de ir a eventos,4 para volta a pagina inicial:" << std::endl;
     unsigned int option;
     std::cin >> option;
     if (option == 1)
@@ -185,7 +211,11 @@ void PlacesView::getUserFriendsPage(Person *person)
 
         this->setViewState(USER_FRIENDS_REQUESTS);
     }
-    else if (option == 3){
+    else if(option == 3){
+        
+        this->setViewState(USER_FRIENDS_LIST);
+    }
+    else if (option == 4){
         this->setViewState(USER_INITIAL_PAGE);
     }
 
