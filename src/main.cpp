@@ -1,9 +1,8 @@
-#include <iostream>
-#include <set>
-
 #include "../include/model/Database.hpp"
 #include "../include/view/PlacesView.hpp"
 #include "../include/view/PlacesStatesEnum.hpp"
+#include <iostream>
+#include <set>
 
 using namespace places;
 
@@ -57,7 +56,9 @@ int main()
 
     PlacesView placesView{1, LOGIN};
 
-    while (true)
+    bool running = true;
+
+    while (running)
     {
         switch (placesView.getViewState())
         {
@@ -78,6 +79,15 @@ int main()
             break;
         case PLACE_REVIEWS:
             placesView.getPlacePage(&place1, PLACE_REVIEWS);
+            break;
+        case USER_FRIENDS_REQUESTS:
+            // Lógica para USER_FRIENDS_REQUESTS
+            break;
+        case USER_FRIENDS_LIST:
+            // Lógica para USER_FRIENDS_LIST
+            break;
+        case EXIT:
+            running = false;
             break;
 
         default:

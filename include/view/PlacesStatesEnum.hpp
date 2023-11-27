@@ -11,7 +11,8 @@ enum ViewsStatesEnum {
     PLACE_REVIEWS,
     PLACE_EVENTS,
     USER_FRIENDS_REQUESTS,
-    USER_FRIENDS_LIST
+    USER_FRIENDS_LIST,
+    EXIT
 };
 }
 
