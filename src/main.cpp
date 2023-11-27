@@ -16,7 +16,8 @@ int main()
     std::vector<Company *> companies;
     std::vector<Place *> places;
     std::vector<Event *> events;
-    // Criar 50 instâncias de Person, Company, Place
+
+    // Criar 50 instâncias de Person, Company, Place e Event
     for (int i = 1; i <= 50; ++i)
     {
         // Instância Person
@@ -47,6 +48,7 @@ int main()
         db->addPerson(person);
         db->addCompany(company);
         db->addEvent(event);
+        db->addPlace(place);
 
         // Adiciona no Array
         persons.push_back(person);
