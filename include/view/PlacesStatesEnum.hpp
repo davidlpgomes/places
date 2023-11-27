@@ -6,7 +6,12 @@ namespace places {
 enum ViewsStatesEnum {
     LOGIN,
     COMPANY_INITIAL_PAGE,
-    USER_INITIAL_PAGE
+    USER_INITIAL_PAGE,
+    PLACE_DESCRIPTION,
+    PLACE_REVIEWS,
+    PLACE_EVENTS,
+    USER_FRIENDS_REQUESTS,
+    USER_FRIENDS_LIST
 };
 }
 

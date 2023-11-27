@@ -31,6 +31,8 @@ class PlacesView {
         void getInitialPage();
         void getUserInitialPage(Person *person);
         void getCompanyInitialPage(Company *company);
+        void getPlacePage(Place *place, ViewsStatesEnum viewState); 
+        void getUserFriendsPage(Person *person,ViewsStatesEnum viewState);
 
 
     private:

@@ -48,19 +48,42 @@ int main() {
     db->addEventIntetion(ei2);
     db->addEventIntetion(ei3);
 
+    Place place1;
+
     const std::multiset<EventIntention> *eis{db->getEventIntetions()};
 
     std::multiset<EventIntention>::const_iterator it{eis->begin()};
 
     PlacesView placesView{1, LOGIN};
-    placesView.getInitialPage();
-    
-    if (placesView.getViewType() == 1){
-        // std::cout << "Tela Empresa" << std::endl;
-        placesView.getCompanyInitialPage(&company1); 
-    }else {
-        placesView.getUserInitialPage(p1); 
+  
+    while (true)
+    {
+        switch (placesView.getViewState())
+        {
+        case LOGIN:
+            placesView.getInitialPage();
+            break;
+        case COMPANY_INITIAL_PAGE:
+            placesView.getCompanyInitialPage(&company1); 
+            break;
+        case USER_INITIAL_PAGE:
+            placesView.getUserInitialPage(p1); 
+            break;
+        case PLACE_DESCRIPTION:
+            placesView.getPlacePage(place1,PLACE_DESCRIPTION); 
+            break;
+        case PLACE_EVENTS:
+            placesView.getPlacePage(place1,PLACE_EVENTS); 
+            break;
+        case PLACE_REVIEWS:
+            placesView.getPlacePage(place1,PLACE_REVIEWS); 
+            break;
+
+        default:
+            break;
+        }
     }
+    
     // for (; it != eis->end(); ++it)
         // std::cout << "e=" << (*it).getEventId() << " p=" << (*it).getPersonId() << std::endl;
 

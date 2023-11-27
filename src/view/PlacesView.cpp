@@ -2,7 +2,9 @@
 #include "../../include/model/User.hpp"
 #include "../../include/model/Person.hpp"
 #include "../../include/model/Company.hpp"
+#include "../../include/model/Place.hpp"
 #include "../../include/controller/EventControler.hpp"
+#include "../../include/controller/PersonController.hpp"
 
 
 #include <iostream>
@@ -74,4 +76,57 @@ void PlacesView::getCompanyInitialPage(Company *company){
 
     std::cout << "Digite 1 para impulsionar um local:" << std::endl;
     // Impulsionar local
+}
+
+void PlacesView::getPlacePage(Place *place, ViewsStatesEnum viewState){
+    if (viewState == PLACE_DESCRIPTION){
+        // place description
+        // print place description
+        place->getAddress();
+        place->getPhoneNumber();
+        place->getDescription();
+    }else if (viewState == PLACE_EVENTS){
+        // place events
+        place->getBoosts();
+        // print place events
+    }else if(viewState == PLACE_REVIEWS){
+        // place reviews 
+        const std::vector<Review> reviews= place->getReviews();
+        // print place reviews
+    }
+
+    std::cout << "Digite 2 para verificar eventos e 3 para verificar revisões:" << std::endl;
+    // Impulsionar local
+    unsigned int opcao;
+    std::cin >> opcao;
+
+    if (opcao == 2){
+        this->setViewState(PLACE_EVENTS);
+
+    }else if(opcao == 3){
+        this->setViewState(PLACE_REVIEWS);
+    }
+}
+
+void PlacesView::getUserFriendsPage(Person *person,ViewsStatesEnum viewState ){
+    PersonController personCont;
+    
+    
+    std::cout << "Digite 1 para visualizar lista e 2 para visualizar solicitações:" << std::endl;
+    unsigned int opcao;
+    std::cin >> opcao;
+    if (option == 1){
+        this->setViewState(USER_FRIENDS_LIST);
+    }
+    if (option == 2){
+        this->setViewState(USER_FRIENDS_REQUESTS);
+    }
+
+    if (option == 1){
+        vector<Person*> friends =personCont.getFriends(); 
+        // print friends list
+    }else if (option ==2){
+        personCont.getFriendRequets(); 
+        // print friends requests
+    }
 }
