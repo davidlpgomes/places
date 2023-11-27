@@ -80,8 +80,8 @@ void PlacesView::getCompanyInitialPage(Company *company)
               << company->getAddress().getNeighborhood() << ", "
               << company->getAddress().getStreet() << " \n";
     std::cout << company->getPhoneNumber() << std::endl;
-    Event event; // Cria um objeto Event. Substitua isso pelo construtor correto, se necessário.
-    EventController evCont(&event); // Passa o endereço do objeto Event para EventController
+    Event event; 
+    EventController evCont(&event); 
 
     std::cout << "Digite 1 para impulsionar um local:" << std::endl;
     // Impulsionar local
@@ -143,12 +143,12 @@ void PlacesView::getUserFriendsPage(Person *person)
 
    if (option == 1)
     {
-        std::vector<Person*> friends = personCont.getFriends(); // Modificado para usar PersonController
+        std::vector<Person*> friends = personCont.getFriends(); 
 
         std::cout << "Lista de Amigos:\n";
-        for (const auto &friendItem : friends) // Renomeie a variável para evitar conflito com a palavra-chave 'friend'
+        for (const auto &friendItem : friends) 
         {
-            std::cout << friendItem->getName() << std::endl; // Supondo que Person tenha um método getName()
+            std::cout << friendItem->getName() << std::endl;
         }
     }
     else if (option == 2)

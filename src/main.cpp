@@ -85,8 +85,5 @@ int main()
         }
     }
 
-    // for (; it != eis->end(); ++it)
-    // std::cout << "e=" << (*it).getEventId() << " p=" << (*it).getPersonId() << std::endl;
-
     return 0;
 }
