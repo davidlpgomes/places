@@ -1,5 +1,6 @@
 {
     "files.associations": {
+        "*.ejs": "html",
         "ostream": "cpp",
         "cctype": "cpp",
         "clocale": "cpp",
@@ -59,6 +60,18 @@
         "thread": "cpp",
         "cfenv": "cpp",
         "cinttypes": "cpp",
-        "typeinfo": "cpp"
+        "typeinfo": "cpp",
+        "any": "cpp",
+        "charconv": "cpp",
+        "list": "cpp",
+        "set": "cpp",
+        "optional": "cpp",
+        "format": "cpp",
+        "fstream": "cpp",
+        "span": "cpp",
+        "stdfloat": "cpp",
+        "valarray": "cpp",
+        "variant": "cpp",
+        "source_location": "cpp"
     }
 }
