@@ -10,43 +10,55 @@ int main()
 {
     Database *db{Database::getInstance()};
 
-    Person *p1{new Person{}};
-    Person *p2{new Person{}};
-    Person *p3{new Person{}};
+    std::vector<Person *> persons;
+    std::vector<Company *> companies;
+    std::vector<Place *> places;
+    std::vector<Event *> events;
+    // Criar 50 instâncias de Person, Company, Place
+    for (int i = 1; i <= 50; ++i)
+    {
+        // Instância Person
+        Person *person = new Person();
+        person->setName("Person" + std::to_string(i));
+        person->setUserName("UserName" + std::to_string(i));
+        // Instância Address
+        Address address("Country" + std::to_string(i), "State" + std::to_string(i),
+                        "City" + std::to_string(i), "Neighborhood" + std::to_string(i),
+                        std::to_string(i) + " Main St", i, 10000 + i);
+        
+        // Instância Place para cada Address
+        Place *place = new Place();
+        place->setName("Place " + std::to_string(i));
+        place->setAddress(address);
 
-    Event *e1{new Event{}};
-    Event *e2{new Event{}};
-    Event *e3{new Event{}};
-    p1->setName("Pedro");
-    p1->setUserName("Pedro_123");
+        // Instância Company
+        Company *company = new Company(123000 + i, "email" + std::to_string(i) + "@example.com",
+                                       "password" + std::to_string(i), "123-456-" + std::to_string(7000 + i),
+                                       "Company " + std::to_string(i), address);
 
-    EventIntention ei1{EventIntention{e2->getId(), p1->getId()}};
-    EventIntention ei2{EventIntention{e3->getId(), p2->getId()}};
-    EventIntention ei3{EventIntention{e1->getId(), p3->getId()}};
+        // Instância Event
+        Event *event = new Event();
+        event->setName("Event " + std::to_string(i));
+        event->setDescription("Description for Event " + std::to_string(i));
 
-    db->addPerson(p1);
-    db->addPerson(p2);
-    db->addPerson(p3);
+        // Adiciona no DB
+        db->addPerson(person);
+        db->addCompany(company);
+        db->addEvent(event);
 
-    db->addEvent(e1);
-    db->addEvent(e2);
-    db->addEvent(e3);
+        // Adiciona no Array
+        persons.push_back(person);
+        companies.push_back(company);
+        events.push_back(event);
+        places.push_back(place);
+    }
 
-    // Create Address instances
-    Address address1("Country1", "State1", "City1", "Neighborhood1", "123 Main St", 1, 12345);
-    Address address2("Country2", "State2", "City2", "Neighborhood2", "456 Oak St", 2, 67890);
-    Address address3("Country3", "State3", "City3", "Neighborhood3", "789 Pine St", 3, 13579);
-
-    // Create Company instances
-    Company company1(123456789, "company1@example.com", "password1", "123-456-7890", "Company One", address1);
-    Company company2(987654321, "company2@example.com", "password2", "987-654-3210", "Company Two", address2);
-
-    db->addCompany(&company1);
-    db->addCompany(&company2);
-
-    db->addEventIntetion(ei1);
-    db->addEventIntetion(ei2);
-    db->addEventIntetion(ei3);
+    // Criar EventIntention
+    for (size_t i = 0; i < std::min(events.size(), places.size()); ++i)
+    {
+        EventIntention ei(events[i]->getId(), places[i]->getId());
+        db->addEventIntetion(ei);
+    }
 
     Place place1;
 
@@ -66,10 +78,28 @@ int main()
             placesView.getInitialPage();
             break;
         case COMPANY_INITIAL_PAGE:
-            placesView.getCompanyInitialPage(&company1);
+            if (!companies.empty())
+            {
+                placesView.getCompanyInitialPage(companies[0]);
+            }
             break;
         case USER_INITIAL_PAGE:
-            placesView.getUserInitialPage(p1);
+            if (!persons.empty())
+            {
+                placesView.getUserInitialPage(persons[0]);
+            }
+            break;
+        case USER_FRIENDS_REQUESTS:
+            if (!persons.empty())
+            {
+                placesView.getUserFriendsPage(persons[0]);
+            }
+            break;
+        case USER_FRIENDS_LIST:
+            if (!persons.empty())
+            {
+                placesView.getUserFriendsPage(persons[0]);
+            }
             break;
         case PLACE_DESCRIPTION:
             placesView.getPlacePage(&place1, PLACE_DESCRIPTION);
@@ -80,16 +110,9 @@ int main()
         case PLACE_REVIEWS:
             placesView.getPlacePage(&place1, PLACE_REVIEWS);
             break;
-        case USER_FRIENDS_REQUESTS:
-            placesView.getUserFriendsPage(p1);
-            break;
-        case USER_FRIENDS_LIST:
-            placesView.getUserFriendsPage(p1);
-            break;
         case EXIT:
             running = false;
             break;
-
         default:
             break;
         }
