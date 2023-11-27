@@ -2,36 +2,41 @@
 #include "../../include/model/User.hpp"
 #include "../../include/model/Person.hpp"
 #include "../../include/model/Company.hpp"
-#include "../../include/model/Place.hpp"
-#include "../../include/controller/EventControler.hpp"
+#include "../../include/model/Place.hpp" 
+#include "../../include/controller/EventController.hpp"
 #include "../../include/controller/PersonController.hpp"
-
-
+#include <vector>
 #include <iostream>
+
+using namespace std; 
 using namespace places;
 
-PlacesView::PlacesView(unsigned int viewType,ViewsStatesEnum viewState): viewType{viewType}, viewState{viewState} {}
-
+PlacesView::PlacesView(unsigned int viewType, ViewsStatesEnum viewState) : viewType{viewType}, viewState{viewState} {}
 
 unsigned int getViewType();
 
-unsigned int PlacesView::getViewType(){
+unsigned int PlacesView::getViewType()
+{
     return this->viewType;
 };
 
-void PlacesView::setViewType(unsigned int viewType){
+void PlacesView::setViewType(unsigned int viewType)
+{
     this->viewType = viewType;
-}; 
+};
 
-ViewsStatesEnum PlacesView::getViewState(){
+ViewsStatesEnum PlacesView::getViewState()
+{
     return this->viewState;
 };
 
-void PlacesView::setViewState(ViewsStatesEnum viewState){
+void PlacesView::setViewState(ViewsStatesEnum viewState)
+{
     this->viewState = viewState;
 };
 
-void PlacesView::getInitialPage() {
+void PlacesView::getInitialPage()
+{
     std::cout << "Digite o tipo de acesso desejado: 1 para empresa, 2 para cliente" << std::endl;
     unsigned int opcao;
     std::cin >> opcao;
@@ -44,11 +49,13 @@ void PlacesView::getInitialPage() {
     std::cin >> password;
 
     std::cout << "Login efetuado" << std::endl;
-    if (opcao == 1){
+    if (opcao == 1)
+    {
         this->setViewState(COMPANY_INITIAL_PAGE);
         this->setViewType(1);
     }
-    else {
+    else
+    {
         this->setViewState(USER_INITIAL_PAGE);
         this->setViewType(2);
     }
@@ -56,42 +63,50 @@ void PlacesView::getInitialPage() {
     return;
 }
 
-void PlacesView::getUserInitialPage(Person *person){
-    std::cout << "" << person->getName()  << std::endl;
-    std::cout << "" << person->getCreationDate()  << std::endl;
+void PlacesView::getUserInitialPage(Person *person)
+{
+    std::cout << "" << person->getName() << std::endl;
+    std::cout << "" << person->getCreationDate() << std::endl;
 
-    // 
-
+    //
 }
 
-void PlacesView::getCompanyInitialPage(Company *company){
-    std::cout << company->getName()  << std::endl;
+void PlacesView::getCompanyInitialPage(Company *company)
+{
+    std::cout << company->getName() << std::endl;
     std::cout << company->getAddress().getCountry() << ", "
               << company->getAddress().getState() << ", "
               << company->getAddress().getCity() << ", "
               << company->getAddress().getNeighborhood() << ", "
-              << company->getAddress().getStreet() << " \n" ;
-    std::cout << company->getPhoneNumber()  << std::endl;
-    EventControler evCont;
+              << company->getAddress().getStreet() << " \n";
+    std::cout << company->getPhoneNumber() << std::endl;
+    Event event; // Cria um objeto Event. Substitua isso pelo construtor correto, se necessário.
+    EventController evCont(&event); // Passa o endereço do objeto Event para EventController
 
     std::cout << "Digite 1 para impulsionar um local:" << std::endl;
     // Impulsionar local
 }
 
-void PlacesView::getPlacePage(Place *place, ViewsStatesEnum viewState){
-    if (viewState == PLACE_DESCRIPTION){
+void PlacesView::getPlacePage(Place *place, ViewsStatesEnum viewState)
+{
+    if (viewState == PLACE_DESCRIPTION)
+    {
         // place description
         // print place description
         place->getAddress();
         place->getPhoneNumber();
         place->getDescription();
-    }else if (viewState == PLACE_EVENTS){
+    }
+    else if (viewState == PLACE_EVENTS)
+    {
         // place events
         place->getBoosts();
         // print place events
-    }else if(viewState == PLACE_REVIEWS){
-        // place reviews 
-        const std::vector<Review> reviews= place->getReviews();
+    }
+    else if (viewState == PLACE_REVIEWS)
+    {
+        // place reviews
+        const std::vector<Review> reviews = place->getReviews();
         // print place reviews
     }
 
@@ -100,33 +115,45 @@ void PlacesView::getPlacePage(Place *place, ViewsStatesEnum viewState){
     unsigned int opcao;
     std::cin >> opcao;
 
-    if (opcao == 2){
+    if (opcao == 2)
+    {
         this->setViewState(PLACE_EVENTS);
-
-    }else if(opcao == 3){
+    }
+    else if (opcao == 3)
+    {
         this->setViewState(PLACE_REVIEWS);
     }
 }
 
-void PlacesView::getUserFriendsPage(Person *person,ViewsStatesEnum viewState ){
-    PersonController personCont;
-    
-    
+void PlacesView::getUserFriendsPage(Person *person)
+{
+    PersonController personCont(person);
+
     std::cout << "Digite 1 para visualizar lista e 2 para visualizar solicitações:" << std::endl;
-    unsigned int opcao;
-    std::cin >> opcao;
-    if (option == 1){
+    unsigned int option;
+    std::cin >> option;
+    if (option == 1)
+    {
         this->setViewState(USER_FRIENDS_LIST);
     }
-    if (option == 2){
+    if (option == 2)
+    {
         this->setViewState(USER_FRIENDS_REQUESTS);
     }
 
-    if (option == 1){
-        vector<Person*> friends =personCont.getFriends(); 
-        // print friends list
-    }else if (option ==2){
-        personCont.getFriendRequets(); 
+   if (option == 1)
+    {
+        std::vector<Person*> friends = personCont.getFriends(); // Modificado para usar PersonController
+
+        std::cout << "Lista de Amigos:\n";
+        for (const auto &friendItem : friends) // Renomeie a variável para evitar conflito com a palavra-chave 'friend'
+        {
+            std::cout << friendItem->getName() << std::endl; // Supondo que Person tenha um método getName()
+        }
+    }
+    else if (option == 2)
+    {
+        personCont.getFriendRequets();
         // print friends requests
     }
 }

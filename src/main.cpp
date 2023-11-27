@@ -7,7 +7,8 @@
 
 using namespace places;
 
-int main() {
+int main()
+{
     Database *db{Database::getInstance()};
 
     Person *p1{new Person{}};
@@ -31,7 +32,7 @@ int main() {
     db->addEvent(e1);
     db->addEvent(e2);
     db->addEvent(e3);
-   
+
     // Create Address instances
     Address address1("Country1", "State1", "City1", "Neighborhood1", "123 Main St", 1, 12345);
     Address address2("Country2", "State2", "City2", "Neighborhood2", "456 Oak St", 2, 67890);
@@ -40,7 +41,7 @@ int main() {
     // Create Company instances
     Company company1(123456789, "company1@example.com", "password1", "123-456-7890", "Company One", address1);
     Company company2(987654321, "company2@example.com", "password2", "987-654-3210", "Company Two", address2);
- 
+
     db->addCompany(&company1);
     db->addCompany(&company2);
 
@@ -55,7 +56,7 @@ int main() {
     std::multiset<EventIntention>::const_iterator it{eis->begin()};
 
     PlacesView placesView{1, LOGIN};
-  
+
     while (true)
     {
         switch (placesView.getViewState())
@@ -64,28 +65,28 @@ int main() {
             placesView.getInitialPage();
             break;
         case COMPANY_INITIAL_PAGE:
-            placesView.getCompanyInitialPage(&company1); 
+            placesView.getCompanyInitialPage(&company1);
             break;
         case USER_INITIAL_PAGE:
-            placesView.getUserInitialPage(p1); 
+            placesView.getUserInitialPage(p1);
             break;
         case PLACE_DESCRIPTION:
-            placesView.getPlacePage(place1,PLACE_DESCRIPTION); 
+            placesView.getPlacePage(&place1, PLACE_DESCRIPTION);
             break;
         case PLACE_EVENTS:
-            placesView.getPlacePage(place1,PLACE_EVENTS); 
+            placesView.getPlacePage(&place1, PLACE_EVENTS);
             break;
         case PLACE_REVIEWS:
-            placesView.getPlacePage(place1,PLACE_REVIEWS); 
+            placesView.getPlacePage(&place1, PLACE_REVIEWS);
             break;
 
         default:
             break;
         }
     }
-    
+
     // for (; it != eis->end(); ++it)
-        // std::cout << "e=" << (*it).getEventId() << " p=" << (*it).getPersonId() << std::endl;
+    // std::cout << "e=" << (*it).getEventId() << " p=" << (*it).getPersonId() << std::endl;
 
     return 0;
 }

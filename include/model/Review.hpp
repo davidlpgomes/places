@@ -21,6 +21,8 @@ class Review {
 
         virtual ~Review() = default;
 
+        void setDate(const boost::posix_time::ptime &date);
+        
         const std::string &getComment() const;
         void setComment(const std::string &comment);
 
