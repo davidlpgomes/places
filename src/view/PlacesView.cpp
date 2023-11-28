@@ -112,13 +112,22 @@ void PlacesView::getCompanyInitialPage(Company *company)
 
         std::cout << "\n" << std::endl;
     }
-    std::cout << "Digite 1 para impulsionar um evento, 2 para adicionar um local:" << std::endl;
+    std::cout << "Digite 1 visualizar seus locais, 2 para adicionar um local:" << std::endl;
     unsigned int opcao;
     std::cin >> opcao;
     if (opcao == 1)
     {
+        companyCont.setCompany(company);
+        vector<Place *> places = placeCont.getPlaces();
+        for (const auto &placeItem : places) 
+        {
+            std::cout << placeItem->getName() << std::endl;
+            std::cout << placeItem->getDescription() << std::endl;
+            std::cout << placeItem->getPhoneNumber() << std::endl;
+
+            std::cout << "\n" << std::endl;
+        }
         this->setViewState(PLACE_EVENTS);
-        std::cout << "Evento impulsionado!" << std::endl;
         
     }else if (opcao == 2){
         companyCont.setCompany(company);
