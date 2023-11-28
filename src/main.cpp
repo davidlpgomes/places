@@ -1,6 +1,8 @@
 #include "../include/model/Database.hpp"
 #include "../include/view/PlacesView.hpp"
 #include "../include/view/PlacesStatesEnum.hpp"
+#include "../include/controller/PersonController.hpp"
+
 #include <iostream>
 #include <set>
 #include <random>
@@ -57,6 +59,13 @@ int main()
         companies.push_back(company);
         events.push_back(event);
         places.push_back(place);
+
+        PersonController personCont(person);
+        if (i > 10 && i < 20)
+            personCont.acceptFriendship(personCont.getPeople()[10]);  // adiciona amigos
+
+        if (i > 20)
+            personCont.sendFriendship(persons[10]); 
     }
 
     // Criar EventIntention
@@ -83,7 +92,7 @@ int main()
     int randomIndex = distribution(generator); 
     // Acessa o determinado valor
     Company *companyRandom = companies[randomIndex];
-    Person *personRandom = persons[randomIndex];
+    Person *personRandom = persons[10];
 
     while (running)
     {

@@ -81,7 +81,22 @@ void PlacesView::getUserInitialPage(Person *person)
     }
     else if (opcao == 3)
     {
-        this->setViewState(PLACE_DESCRIPTION);
+        Event event; 
+        EventController evCont(&event);
+        std::string searchedEv; 
+        std::cout << "Digite o nome do evento:" << std::endl;
+        std::cin >> searchedEv;
+          
+
+        vector<Event *> events = evCont.getEvents(searchedEv);
+        for (const auto &evItem : events) 
+        {
+            std::cout << evItem->getName() << std::endl;
+            std::cout << evItem->getDescription() << std::endl;
+            std::cout << evItem->getExpectation() << std::endl;
+            std::cout << "\n" << std::endl;
+        }
+        std::cout << "-----------------------------------" << std::endl;
         
     }
     //
@@ -277,8 +292,10 @@ void PlacesView::getUserFriendsPage(Person *person)
     std::cout << "Digite 1 para visualizar lista, 2 para visualizar solicitações,3 para buscar novos amigos,4 para volta a pagina inicial:" << std::endl;
     unsigned int option;
     std::cin >> option;
+
     if (option == 1)
     {
+        personCont.setPerson(person);
         std::vector<Person*> friends = personCont.getFriends(); 
 
         std::cout << "Lista de Amigos:\n";
@@ -290,7 +307,7 @@ void PlacesView::getUserFriendsPage(Person *person)
     }
     else if (option == 2)
     {
-        personCont.setPerson(person); 
+        personCont.setPerson(person);
         std::vector<Person*> friendsReq = personCont.getFriendRequests();
         std::cout << "Lista de Solicitações:\n";
         for (const auto &friendItem : friendsReq) 
@@ -319,8 +336,7 @@ void PlacesView::getUserFriendsPage(Person *person)
             std::cin >> personName;
             personCont.setPerson(person); 
             personCont.sendFriendship(personCont.getPeople(personName)[0]); // envia solicitacao de amizade a pessoa buscada
-        }else{
-            this->setViewState(USER_INITIAL_PAGE);
+        
         }
 
     }
