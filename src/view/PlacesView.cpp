@@ -99,6 +99,7 @@ void PlacesView::getCompanyInitialPage(Company *company)
     Event event; 
     EventController evCont(&event); 
     CompanyController companyCont(company); 
+    PlaceController placeCont; 
 
     std::cout << "Seus eventos:" << std::endl;
     
@@ -111,7 +112,7 @@ void PlacesView::getCompanyInitialPage(Company *company)
 
         std::cout << "\n" << std::endl;
     }
-    std::cout << "Digite 1 para impulsionar um evento, 2 para adicionar um evento:" << std::endl;
+    std::cout << "Digite 1 para impulsionar um evento, 2 para adicionar um local:" << std::endl;
     unsigned int opcao;
     std::cin >> opcao;
     if (opcao == 1)
@@ -121,30 +122,45 @@ void PlacesView::getCompanyInitialPage(Company *company)
         
     }else if (opcao == 2){
         companyCont.setCompany(company);
-        std::cout << "Digite os dados do evento:" << std::endl;
+        std::cout << "Digite os dados do local:" << std::endl;
         Event *event = new Event();
-        unsigned int expectation;
-        unsigned int boost;
-        posix_time::ptime evTime; 
+        unsigned int number;
+        unsigned int zipcode;
         std::string stringInfo;
+        std::string count;
+        std::string state;
+        std::string city;
+        std::string neighboorhood;
+        std::string street;
         
+        Place *place = new Place();
         std::cout << "Nome:" << std::endl;
         std::cin >> stringInfo;
-        event->setName("Event " + std::to_string(stringInfo));
+        place->setName("Place " + std::to_string(stringInfo));
         std::cout << "Descrição:" << std::endl;
         std::cin >> stringInfo;
-        event->setDescription("Description for Event " + std::to_string(stringInfo));
-        std::cout << "Iníico do evento:" << std::endl;
-        std::cin >> evTime;
-        event->setBegin(evTime);
-        std::cout << "Fim do evento:" << std::endl;
-        std::cin >> evTime;
-        event->setEnd(evTime);
-        std::cout << "Expectativa do evento:" << std::endl;
-        std::cin >> expectation;
-        event->setExpectation(expectation)
-        evCont.addEvent(event);
-        std::cout << "Evento adicionado!" << std::endl;
+        place->setDescription(stringInfo);
+        std::cout << "Telefone:" << std::endl;
+        std::cin >> stringInfo;
+        place->setPhoneNumber(stringInfo);
+
+        std::cout << "Digite: País, estado, cidade, bairro, rua, numero e cep do local:" << std::endl;
+        std::cin >> count;
+        std::cin >> state;
+        std::cin >> city;
+        std::cin >> neighboorhood;
+        std::cin >> street;
+        std::cin >> number;
+        std::cin >> zipcode;
+
+        Address address("Country" + std::to_string(count), "State" + std::to_string(state),
+                "City" + std::to_string(city), "Neighborhood" + std::to_string(neighboorhood),
+                std::to_string(street) + " Main St", number, 10000 + zipcode);
+
+        place->setAddress(address);
+    
+        std::cout << "Local adicionado!" << std::endl;
+        placeCont.addPlace(place);
     }
     else
     {
@@ -191,9 +207,33 @@ void PlacesView::getPlacePage(Place *place, ViewsStatesEnum viewState)
             std::cout << "\n" << std::endl;
 
         }
+    }else if (viewState == PLACE_ADD){
+        EventController evCont(); 
+        unsigned int expectation;
+        unsigned int boost;
+        posix_time::ptime evTime; 
+        std::string stringInfo;
+        
+        std::cout << "Nome:" << std::endl;
+        std::cin >> stringInfo;
+        event->setName("Event " + std::to_string(stringInfo));
+        std::cout << "Descrição:" << std::endl;
+        std::cin >> stringInfo;
+        event->setDescription("Description for Event " + std::to_string(stringInfo));
+        std::cout << "Iníico do evento:" << std::endl;
+        std::cin >> evTime;
+        event->setBegin(evTime);
+        std::cout << "Fim do evento:" << std::endl;
+        std::cin >> evTime;
+        event->setEnd(evTime);
+        std::cout << "Expectativa do evento:" << std::endl;
+        std::cin >> expectation;
+        event->setExpectation(expectation)
+        evCont.addEvent(event);
+        std::cout << "Evento adicionado!" << std::endl;
     }
 
-    std::cout << "Digite 2 para ver eventos no local e 3 para ver revisões do local, 4 para voltar a pagina inicial:" << std::endl;
+    std::cout << "Digite 2 para ver eventos no local e 3 para ver revisões do local,4 para adicionar evento, 5 para voltar a pagina inicial:" << std::endl;
     unsigned int opcao;
     std::cin >> opcao;
     if (opcao == 2)
@@ -204,6 +244,8 @@ void PlacesView::getPlacePage(Place *place, ViewsStatesEnum viewState)
     {
         this->setViewState(PLACE_REVIEWS);
     }else if(opcao == 4){
+        this->setViewState(PLACE_ADD);
+    }else if(opcao == 5){
         this->setViewState(USER_INITIAL_PAGE);
     }
 }
