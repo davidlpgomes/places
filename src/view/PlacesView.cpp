@@ -314,6 +314,12 @@ void PlacesView::getUserFriendsPage(Person *person)
         {
             std::cout << friendItem->getName() << std::endl;
         }
+        std::cout << "Digite o numero da pessoa na lista para adiciona-la ou -1 para sair:\n";
+        int option;
+        std::cin >> option;
+        if (option != -1){
+            personCont.acceptFriendship(friendsReq[option]);  // adiciona amigos            
+        }
 
         this->setViewState(USER_FRIENDS_REQUESTS);
     }

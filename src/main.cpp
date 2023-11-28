@@ -61,11 +61,18 @@ int main()
         places.push_back(place);
 
         PersonController personCont(person);
-        if (i > 10 && i < 20)
-            personCont.acceptFriendship(personCont.getPeople()[10]);  // adiciona amigos
+        if (i > 10 && i < 30)
+            personCont.sendFriendship(persons[10]);
 
-        if (i > 20 && i < 30)
-            personCont.sendFriendship(persons[10]); 
+
+        if (i == 50){
+            for (int j = 1; j <= 10; ++j){
+                personCont.setPerson(persons[10]);
+                std::vector<Person*> friendsReq = personCont.getFriendRequests();
+                personCont.acceptFriendship(friendsReq[j]);  // adiciona amigos            
+            }
+
+        }
     }
 
     // Criar EventIntention
