@@ -290,6 +290,7 @@ void PlacesView::getUserFriendsPage(Person *person)
     }
     else if (option == 2)
     {
+        personCont.setPerson(person); 
         std::vector<Person*> friendsReq = personCont.getFriendRequests();
         std::cout << "Lista de Solicitações:\n";
         for (const auto &friendItem : friendsReq) 
