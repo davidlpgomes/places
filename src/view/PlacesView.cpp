@@ -329,15 +329,18 @@ void PlacesView::getUserFriendsPage(Person *person)
 
         unsigned int option;
         std::cin >> option;
+
         if (option == 1){
             std::cout << "Digite o nome do amigo" << std::endl;
 
             std::string personName;
             std::cin >> personName;
+
             personCont.setPerson(person); 
             personCont.sendFriendship(personCont.getPeople(personName)[0]); // envia solicitacao de amizade a pessoa buscada
-        
         }
+
+        this->setViewState(USER_INITIAL_PAGE);
 
     }
     else if (option == 4){

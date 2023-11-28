@@ -64,7 +64,7 @@ int main()
         if (i > 10 && i < 20)
             personCont.acceptFriendship(personCont.getPeople()[10]);  // adiciona amigos
 
-        if (i > 20)
+        if (i > 20 && i < 30)
             personCont.sendFriendship(persons[10]); 
     }
 
