@@ -186,7 +186,7 @@ void PlacesView::getUserFriendsPage(Person *person)
 {
     PersonController personCont(person);
 
-    std::cout << "Digite 1 para visualizar lista, 2 para visualizar solicitações,3 para suas intenções de ir a eventos,4 para volta a pagina inicial:" << std::endl;
+    std::cout << "Digite 1 para visualizar lista, 2 para visualizar solicitações,3 para buscar novos amigos,4 para volta a pagina inicial:" << std::endl;
     unsigned int option;
     std::cin >> option;
     if (option == 1)
@@ -213,7 +213,25 @@ void PlacesView::getUserFriendsPage(Person *person)
     }
     else if(option == 3){
         
-        this->setViewState(USER_FRIENDS_LIST);
+        vector<Person *> people = personCont.getPeople();
+        std::cout << "Lista de Pessoas:\n";
+        for (const auto &peopleIt : people) 
+        {
+            std::cout << peopleIt->getName() << std::endl;
+        }
+        std::cout << "Digite 1 para adicionar uma pessoa como amigo ou 2 para voltar: " << std::endl;
+
+        unsigned int option;
+        std::cin >> option;
+        if (option == 1){
+            std::string personName;
+            std::cin >> personName;
+
+            personCont.addPerson(personCont.getPeople(personName)[0]);
+        }else{
+            this->setViewState(USER_INITIAL_PAGE);
+        }
+
     }
     else if (option == 4){
         this->setViewState(USER_INITIAL_PAGE);
