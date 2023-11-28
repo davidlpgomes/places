@@ -97,22 +97,13 @@ void PlacesView::getCompanyInitialPage(Company *company)
               << company->getAddress().getStreet() << " \n";
     std::cout << company->getPhoneNumber() << std::endl;
     Event event; 
+    Place place1; 
+
     EventController evCont(&event); 
     CompanyController companyCont(company); 
-    PlaceController placeCont; 
+    PlaceController placeCont(&place1); 
 
-    std::cout << "Seus eventos:" << std::endl;
-    
-    vector<Event *> events = evCont.getEvents();
-    for (const auto &evItem : events) 
-    {
-        std::cout << evItem->getName() << std::endl;
-        std::cout << evItem->getDescription() << std::endl;
-        std::cout << evItem->getBegin() << " - " << evItem->getEnd() << std::endl;
-
-        std::cout << "\n" << std::endl;
-    }
-    std::cout << "Digite 1 visualizar seus locais, 2 para adicionar um local:" << std::endl;
+    std::cout << "Digite 1 visualizar seus locais, 2 para adicionar um local, 3 para sair:" << std::endl;
     unsigned int opcao;
     std::cin >> opcao;
     if (opcao == 1)
@@ -121,18 +112,19 @@ void PlacesView::getCompanyInitialPage(Company *company)
         vector<Place *> places = placeCont.getPlaces();
         for (const auto &placeItem : places) 
         {
+            std::cout << "LOCAL:" << std::endl;
+
             std::cout << placeItem->getName() << std::endl;
             std::cout << placeItem->getDescription() << std::endl;
             std::cout << placeItem->getPhoneNumber() << std::endl;
 
             std::cout << "\n" << std::endl;
         }
-        this->setViewState(PLACE_EVENTS);
         
     }else if (opcao == 2){
         companyCont.setCompany(company);
         std::cout << "Digite os dados do local:" << std::endl;
-        Event *event = new Event();
+        
         unsigned int number;
         unsigned int zipcode;
         std::string stringInfo;
@@ -145,7 +137,7 @@ void PlacesView::getCompanyInitialPage(Company *company)
         Place *place = new Place();
         std::cout << "Nome:" << std::endl;
         std::cin >> stringInfo;
-        place->setName("Place " + std::to_string(stringInfo));
+        place->setName("Place " + stringInfo );
         std::cout << "Descrição:" << std::endl;
         std::cin >> stringInfo;
         place->setDescription(stringInfo);
@@ -162,9 +154,9 @@ void PlacesView::getCompanyInitialPage(Company *company)
         std::cin >> number;
         std::cin >> zipcode;
 
-        Address address("Country" + std::to_string(count), "State" + std::to_string(state),
-                "City" + std::to_string(city), "Neighborhood" + std::to_string(neighboorhood),
-                std::to_string(street) + " Main St", number, 10000 + zipcode);
+        Address address("Country" + count, "State" + state,
+                "City" + city, "Neighborhood" + neighboorhood,
+                street + " Main St", number, 10000 + zipcode);
 
         place->setAddress(address);
     
@@ -175,7 +167,6 @@ void PlacesView::getCompanyInitialPage(Company *company)
     {
         this->setViewState(EXIT);
     }
-    // Impulsionar local
 }
 
 void PlacesView::getPlacePage(Place *place, ViewsStatesEnum viewState)
@@ -191,8 +182,9 @@ void PlacesView::getPlacePage(Place *place, ViewsStatesEnum viewState)
     }
     else if (viewState == PLACE_EVENTS)
     {
-        Event event; 
-        EventController evCont(&event); 
+        Event *event = new Event();
+
+        EventController evCont(event); 
         vector<Event *> events = evCont.getEvents();
         for (const auto &evItem : events) 
         {
@@ -217,29 +209,31 @@ void PlacesView::getPlacePage(Place *place, ViewsStatesEnum viewState)
 
         }
     }else if (viewState == PLACE_ADD){
-        EventController evCont(); 
+        Event event; 
+        EventController evCont(&event); 
         unsigned int expectation;
-        unsigned int boost;
-        posix_time::ptime evTime; 
+        boost::posix_time::ptime evTime; 
         std::string stringInfo;
         
         std::cout << "Nome:" << std::endl;
         std::cin >> stringInfo;
-        event->setName("Event " + std::to_string(stringInfo));
+        event.setName("Event " + stringInfo);
         std::cout << "Descrição:" << std::endl;
         std::cin >> stringInfo;
-        event->setDescription("Description for Event " + std::to_string(stringInfo));
+        event.setDescription("Description for Event " + stringInfo);
         std::cout << "Iníico do evento:" << std::endl;
         std::cin >> evTime;
-        event->setBegin(evTime);
+        event.setBegin(evTime);
         std::cout << "Fim do evento:" << std::endl;
         std::cin >> evTime;
-        event->setEnd(evTime);
+        event.setEnd(evTime);
         std::cout << "Expectativa do evento:" << std::endl;
         std::cin >> expectation;
-        event->setExpectation(expectation)
-        evCont.addEvent(event);
+        event.setExpectation(expectation);
+        evCont.addEvent(&event);
         std::cout << "Evento adicionado!" << std::endl;
+
+
     }
 
     std::cout << "Digite 2 para ver eventos no local e 3 para ver revisões do local,4 para adicionar evento, 5 para voltar a pagina inicial:" << std::endl;
@@ -247,7 +241,24 @@ void PlacesView::getPlacePage(Place *place, ViewsStatesEnum viewState)
     std::cin >> opcao;
     if (opcao == 2)
     {
-        this->setViewState(PLACE_EVENTS);
+        std::cout << "Seus eventos:" << std::endl;
+        Event event; 
+        Place place1; 
+
+        EventController evCont(&event); 
+        PlaceController placeCont(&place1);
+
+        vector<Event *> events = evCont.getEvents();
+        for (const auto &evItem : events) 
+        {
+            std::cout << evItem->getName() << std::endl;
+            std::cout << evItem->getDescription() << std::endl;
+            std::cout << evItem->getBegin() << " - " << evItem->getEnd() << std::endl;
+
+            std::cout << "\n" << std::endl;
+        }
+        this->setViewState(USER_INITIAL_PAGE);
+
     }
     else if (opcao == 3)
     {
@@ -301,6 +312,8 @@ void PlacesView::getUserFriendsPage(Person *person)
         unsigned int option;
         std::cin >> option;
         if (option == 1){
+            std::cout << "Digite o nome do amigo" << std::endl;
+
             std::string personName;
             std::cin >> personName;
             personCont.setPerson(person); 
