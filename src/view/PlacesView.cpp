@@ -98,7 +98,7 @@ void PlacesView::getCompanyInitialPage(Company *company)
     std::cout << company->getPhoneNumber() << std::endl;
     Event event; 
     EventController evCont(&event); 
-
+    CompanyController companyCont(company); 
 
     std::cout << "Seus eventos:" << std::endl;
     
@@ -111,7 +111,7 @@ void PlacesView::getCompanyInitialPage(Company *company)
 
         std::cout << "\n" << std::endl;
     }
-    std::cout << "Digite 1 para impulsionar um evento:" << std::endl;
+    std::cout << "Digite 1 para impulsionar um evento, 2 para adicionar um evento:" << std::endl;
     unsigned int opcao;
     std::cin >> opcao;
     if (opcao == 1)
@@ -119,6 +119,32 @@ void PlacesView::getCompanyInitialPage(Company *company)
         this->setViewState(PLACE_EVENTS);
         std::cout << "Evento impulsionado!" << std::endl;
         
+    }else if (opcao == 2){
+        companyCont.setCompany(company);
+        std::cout << "Digite os dados do evento:" << std::endl;
+        Event *event = new Event();
+        unsigned int expectation;
+        unsigned int boost;
+        posix_time::ptime evTime; 
+        std::string stringInfo;
+        
+        std::cout << "Nome:" << std::endl;
+        std::cin >> stringInfo;
+        event->setName("Event " + std::to_string(stringInfo));
+        std::cout << "Descrição:" << std::endl;
+        std::cin >> stringInfo;
+        event->setDescription("Description for Event " + std::to_string(stringInfo));
+        std::cout << "Iníico do evento:" << std::endl;
+        std::cin >> evTime;
+        event->setBegin(evTime);
+        std::cout << "Fim do evento:" << std::endl;
+        std::cin >> evTime;
+        event->setEnd(evTime);
+        std::cout << "Expectativa do evento:" << std::endl;
+        std::cin >> expectation;
+        event->setExpectation(expectation)
+        evCont.addEvent(event);
+        std::cout << "Evento adicionado!" << std::endl;
     }
     else
     {
@@ -226,8 +252,8 @@ void PlacesView::getUserFriendsPage(Person *person)
         if (option == 1){
             std::string personName;
             std::cin >> personName;
-
-            personCont.addPerson(personCont.getPeople(personName)[0]);
+            personCont.setPerson(person); 
+            personCont.sendFriendship(personCont.getPeople(personName)[0]); // envia solicitacao de amizade a pessoa buscada
         }else{
             this->setViewState(USER_INITIAL_PAGE);
         }
