@@ -7,6 +7,7 @@ Friendship::Friendship(
     unsigned int secondPersonId
 ): firstPersonId{firstPersonId}, secondPersonId{secondPersonId} {
     this->requestDate = boost::posix_time::second_clock::local_time();
+    this->status = FriendshipStatusEnum::REQUEST_SENT;
 }
 
 unsigned int Friendship::getFirstPersonId() {
