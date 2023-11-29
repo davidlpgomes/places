@@ -31,6 +31,8 @@ class PersonController : public Controller {
 
         Person *getPersonById(unsigned int id) const;
 
+        Person *getPersonByEmail(const std::string &email) const;
+
         std::vector<Person*> getPeople() const;
 
         std::vector<Person*> getPeople(const std::string &search) const;

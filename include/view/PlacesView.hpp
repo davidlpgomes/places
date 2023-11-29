@@ -28,7 +28,11 @@ class PlacesView {
         ViewsStatesEnum getViewState();
         void setViewState(ViewsStatesEnum viewState);
 
-        void getInitialPage();
+        void printHeader();
+        void clearTerminal();
+        User *getInitialPage();
+        void getRegisterPersonPage();
+        void getRegisterCompanyPage();
         void getUserInitialPage(Person *person);
         void getCompanyInitialPage(Company *company);
         void getPlacePage(Place *place, ViewsStatesEnum viewState); 

@@ -41,6 +41,22 @@ Company *CompanyController::getCompanyById(unsigned int id) const {
     return this->db->getCompanies()->find(id)->second;
 }
 
+Company *CompanyController::getCompanyByEmail(const std::string &email) const {
+    const std::map<int, Company*> *companies{this->db->getCompanies()};
+
+    std::map<int, Company*>::const_iterator it{companies->begin()};
+
+    Company *company{nullptr};
+
+    for (; it != companies->end(); ++it)
+        if ((*it).second->getEmail() == email) {
+            company = (*it).second;
+            break;
+        }
+
+    return company;
+}
+
 std::vector<Company*> CompanyController::getCompanies() const {
     const std::map<int, Company*> *companies{this->db->getCompanies()};
 

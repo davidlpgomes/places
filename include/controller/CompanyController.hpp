@@ -27,6 +27,8 @@ class CompanyController : public Controller {
 
         Company *getCompanyById(unsigned int id) const;
 
+        Company *getCompanyByEmail(const std::string &email) const;
+
         std::vector<Company*> getCompanies() const;
 
         std::vector<Company*> getCompanies(const std::string &search) const;

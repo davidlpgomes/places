@@ -92,50 +92,51 @@ int main()
 
     bool running = true;
 
-    // Gerador de números aleatórios
-    std::default_random_engine generator(std::chrono::system_clock::now().time_since_epoch().count());
-    std::uniform_int_distribution<int> distribution(0, companies.size() - 1);
-    // Gera um índice aleatório
-    int randomIndex = distribution(generator); 
-    // Acessa o determinado valor
-    Company *companyRandom = companies[randomIndex];
-    Person *personRandom = persons[10];
+    User *user{nullptr};
 
-    while (running)
-    {
-        switch (placesView.getViewState())
-        {
-        case LOGIN:
-            placesView.getInitialPage();
-            break;
-        case COMPANY_INITIAL_PAGE:
-                placesView.getCompanyInitialPage(companyRandom);
-            break;
-        case USER_INITIAL_PAGE:
-                placesView.getUserInitialPage(personRandom);
-            break;
-        case USER_FRIENDS_REQUESTS:
-                placesView.getUserFriendsPage(personRandom);
-            break;
-        case USER_FRIENDS_LIST:
-                placesView.getUserFriendsPage(personRandom);
-            break;
-        case PLACE_DESCRIPTION:
-            placesView.getPlacePage(places[1], PLACE_DESCRIPTION);
-            break;
-        case PLACE_EVENTS:
-            placesView.getPlacePage(places[1], PLACE_EVENTS);
-            break;
-        case PLACE_REVIEWS:
-            placesView.getPlacePage(places[1], PLACE_REVIEWS);
-            break;
-        case EXIT:
-            running = false;
-            break;
-        default:
-            break;
+    while (running) {
+        placesView.clearTerminal();
+        placesView.printHeader();
+
+        switch (placesView.getViewState()) {
+            case LOGIN:
+                user = (User*) placesView.getInitialPage();
+                break;
+            case REGISTER_PERSON:
+                placesView.getRegisterPersonPage();
+                break;
+            case REGISTER_COMPANY:
+                placesView.getRegisterCompanyPage();
+                break;
+            case COMPANY_INITIAL_PAGE:
+                placesView.getCompanyInitialPage((Company*) user);
+                break;
+            case USER_INITIAL_PAGE:
+                placesView.getUserInitialPage((Person*) user);
+                break;
+            case USER_FRIENDS_REQUESTS:
+                placesView.getUserFriendsPage((Person*) user);
+                break;
+            case USER_FRIENDS_LIST:
+                placesView.getUserFriendsPage((Person*) user);
+                break;
+            case PLACE_DESCRIPTION:
+                placesView.getPlacePage(places[1], PLACE_DESCRIPTION);
+                break;
+            case PLACE_EVENTS:
+                placesView.getPlacePage(places[1], PLACE_EVENTS);
+                break;
+            case PLACE_REVIEWS:
+                placesView.getPlacePage(places[1], PLACE_REVIEWS);
+                break;
+            case EXIT:
+                running = false;
+                break;
+            default:
+                break;
         }
     }
 
     return 0;
 }
+

@@ -8,70 +8,257 @@
 #include "../../include/controller/PlaceController.hpp"
 #include "../../include/controller/CompanyController.hpp"
 
-
-
 #include <vector>
 #include <iostream>
 
-using namespace std; 
+
 using namespace places;
 
-PlacesView::PlacesView(unsigned int viewType, ViewsStatesEnum viewState) : viewType{viewType}, viewState{viewState} {}
 
-unsigned int getViewType();
+PlacesView::PlacesView(
+    unsigned int viewType, 
+    ViewsStatesEnum viewState
+): viewType{viewType}, viewState{viewState} {
+}
 
-unsigned int PlacesView::getViewType()
-{
+unsigned int PlacesView::getViewType() {
     return this->viewType;
 }
 
-void PlacesView::setViewType(unsigned int viewType)
-{
+void PlacesView::setViewType(unsigned int viewType) {
     this->viewType = viewType;
+
+    return;
 }
 
-ViewsStatesEnum PlacesView::getViewState()
-{
+ViewsStatesEnum PlacesView::getViewState() {
     return this->viewState;
 }
 
-void PlacesView::setViewState(ViewsStatesEnum viewState)
-{
+void PlacesView::setViewState(ViewsStatesEnum viewState) {
     this->viewState = viewState;
+
+    return;
 }
 
-void PlacesView::getInitialPage()
-{
-    std::cout << "Digite o tipo de acesso desejado: 1 para empresa, 2 para cliente" << std::endl;
-    unsigned int opcao;
-    std::cin >> opcao;
+void PlacesView::printHeader() {
+    int cols = 70;
 
-    std::cout << "E-mail:" << std::endl;
-    std::string login;
-    std::cin >> login;
-    std::cout << "Senha:" << std::endl;
+    for (int i = 0; i < cols; i++) std::cout << "-";
+    std::cout << std::endl;
+
+    std::string title{"PLACES"};
+    int num_spaces = (int) cols / 2 - title.length() / 2;
+
+    for (int i = 0; i < num_spaces; i++) std::cout << " ";
+    std::cout << title;
+    for (int i = 0; i < num_spaces; i++) std::cout << " ";
+    std::cout << std::endl;
+
+    for (int i = 0; i < cols; i++) std::cout << "-";
+    std::cout << std::endl;
+
+    return;
+}
+
+void PlacesView::clearTerminal() {
+    int ret = std::system("clear");
+
+    if (ret) exit(1);
+
+    return;
+}
+
+User *PlacesView::getInitialPage() {
+    unsigned int option;
+
+    std::cout << "[1] Cadastrar" << std::endl;
+    std::cout << "[2] Login" << std::endl;
+    std::cout << "[3] Sair" << std::endl;
+    std::cout << "Opção: ";
+
+    std::cin >> option;
+
+    if (option == 1) {
+        std::cout << "\n\n[1] Cadastrar cliente" << std::endl;
+        std::cout << "[2] Cadastrar empresa" << std::endl;
+        std::cout << "Opção: ";
+        std::cin >> option;
+
+        if (option == 1)
+            this->setViewState(REGISTER_PERSON);
+        else
+            this->setViewState(REGISTER_COMPANY);
+
+        return nullptr;
+    } else if (option != 2)
+        exit(0);
+
+    std::cout << "\n[1] Login de cliente" << std::endl;
+    std::cout << "[2] Login de empresa" << std::endl;
+    std::cout << "Opção: ";
+    std::cin >> option;
+
+    std::cout << "E-mail: ";
+    std::string email;
+    std::cin >> email;
+
+    std::cout << "Senha: ";
     std::string password;
     std::cin >> password;
+    std::cout << std::endl;
 
-    std::cout << "Login efetuado" << std::endl;
-    if (opcao == 1)
-    {
-        this->setViewState(COMPANY_INITIAL_PAGE);
-        this->setViewType(1);
-    }
-    else
-    {
+    if (option == 1) {
+        PersonController pc{nullptr};
+        Person *person = pc.getPersonByEmail(email);
+
+        if (person == nullptr) {
+            std::cout << "E-mail inválido!" << std::endl;
+            sleep(2);
+
+            this->setViewState(LOGIN);
+            return nullptr;
+        }
+
+        if (password != person->getPassword()) {
+            std::cout << "Senha inválida!" << std::endl;
+            sleep(2);
+
+            this->setViewState(LOGIN);
+            return nullptr;
+        }
+
+        std::cout << "Login efetuado!" << std::endl;
+        sleep(2);
+
         this->setViewState(USER_INITIAL_PAGE);
         this->setViewType(2);
+
+        return (User*) person;
     }
+
+        
+    CompanyController cc{nullptr};
+    Company *company = cc.getCompanyByEmail(email);
+
+    if (company == nullptr) {
+        std::cout << "E-mail inválido!" << std::endl;
+        sleep(2);
+
+        this->setViewState(LOGIN);
+        return nullptr;
+    }
+
+    if (password != company->getPassword()) {
+        std::cout << "Senha inválida!" << std::endl;
+        sleep(2);
+
+        this->setViewState(LOGIN);
+        return nullptr;
+    }
+
+    std::cout << "Login efetuado!" << std::endl;
+    sleep(2);
+
+    this->setViewState(COMPANY_INITIAL_PAGE);
+    this->setViewType(1);
+
+    return (User*) company;
+}
+
+void PlacesView::getRegisterPersonPage() {
+    std::string userName;
+    unsigned int cpf;
+    std::string email;
+    std::string password;
+    std::string phoneNumber;
+    std::string name;
+
+    Address address;
+    
+    std::cout << "Nome: ";
+    std::cin >> name;
+
+    std::cout << "Username: ";
+    std::cin >> userName;
+
+    std::cout << "CPF (apenas números): ";
+    std::cin >> cpf;
+
+    std::cout << "E-mail: ";
+    std::cin >> email;
+
+    std::cout << "Senha: ";
+    std::cin >> password;
+
+    std::cout << "Número de telefone: ";
+    std::cin >> phoneNumber;
+
+    PersonController pc{nullptr};
+    pc.addPerson(
+        userName,
+        cpf,
+        boost::posix_time::second_clock::local_time(),
+        email,
+        password,
+        phoneNumber,
+        name,
+        address
+    );
+
+    std::cout << "Cadastrado com sucesso!" << std::endl;
+    sleep(2);
+
+    this->setViewState(LOGIN);
+
+    return;
+}
+
+void PlacesView::getRegisterCompanyPage() {
+    unsigned int cnpj;
+    std::string email;
+    std::string password;
+    std::string phoneNumber;
+    std::string name;
+
+    Address address;
+    
+    std::cout << "Nome: ";
+    std::cin >> name;
+
+    std::cout << "CNPJ (apenas números): ";
+    std::cin >> cnpj;
+
+    std::cout << "E-mail: ";
+    std::cin >> email;
+
+    std::cout << "Senha: ";
+    std::cin >> password;
+
+    std::cout << "Número de telefone: ";
+    std::cin >> phoneNumber;
+
+    CompanyController cc{nullptr};
+    cc.addCompany(
+        cnpj,
+        email,
+        password,
+        phoneNumber,
+        name,
+        address
+    );
+
+    std::cout << "Cadastrado com sucesso!" << std::endl;
+    sleep(2);
+
+    this->setViewState(LOGIN);
 
     return;
 }
 
 void PlacesView::getUserInitialPage(Person *person)
 {
-    std::cout << "" << person->getName() << std::endl;
-    std::cout << "" << person->getCreationDate() << std::endl;
+    std::cout << "Nome: " << person->getName() << std::endl;
     std::cout << "Digite 2 para visualizar a pagina de amigos e 3 para buscar eventos:" << std::endl;
     unsigned int opcao;
     std::cin >> opcao;
@@ -88,7 +275,7 @@ void PlacesView::getUserInitialPage(Person *person)
         std::cin >> searchedEv;
           
 
-        vector<Event *> events = evCont.getEvents(searchedEv);
+        std::vector<Event *> events = evCont.getEvents(searchedEv);
         for (const auto &evItem : events) 
         {
             std::cout << evItem->getName() << std::endl;
@@ -124,7 +311,7 @@ void PlacesView::getCompanyInitialPage(Company *company)
     if (opcao == 1)
     {
         companyCont.setCompany(company);
-        vector<Place *> places = placeCont.getPlaces();
+        std::vector<Place *> places = placeCont.getPlaces();
         for (const auto &placeItem : places) 
         {
             std::cout << "LOCAL:" << std::endl;
@@ -200,7 +387,7 @@ void PlacesView::getPlacePage(Place *place, ViewsStatesEnum viewState)
         Event *event = new Event();
 
         EventController evCont(event); 
-        vector<Event *> events = evCont.getEvents();
+        std::vector<Event *> events = evCont.getEvents();
         for (const auto &evItem : events) 
         {
             std::cout << evItem->getName() << std::endl;
@@ -263,7 +450,7 @@ void PlacesView::getPlacePage(Place *place, ViewsStatesEnum viewState)
         EventController evCont(&event); 
         PlaceController placeCont(&place1);
 
-        vector<Event *> events = evCont.getEvents();
+        std::vector<Event *> events = evCont.getEvents();
         for (const auto &evItem : events) 
         {
             std::cout << evItem->getName() << std::endl;
@@ -325,7 +512,7 @@ void PlacesView::getUserFriendsPage(Person *person)
     }
     else if(option == 3){
         
-        vector<Person *> people = personCont.getPeople();
+        std::vector<Person *> people = personCont.getPeople();
         std::cout << "Lista de Pessoas:\n";
         for (const auto &peopleIt : people) 
         {

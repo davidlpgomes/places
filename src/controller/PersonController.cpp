@@ -41,6 +41,22 @@ Person *PersonController::getPersonById(unsigned int id) const {
     return this->db->getPersons()->find(id)->second;
 }
 
+Person *PersonController::getPersonByEmail(const std::string &email) const {
+    const std::map<int, Person*> *people{this->db->getPersons()};
+
+    std::map<int, Person*>::const_iterator it{people->begin()};
+
+    Person *person{nullptr};
+
+    for (; it != people->end(); ++it)
+        if ((*it).second->getEmail() == email) {
+            person = (*it).second;
+            break;
+        }
+
+    return person;
+}
+
 std::vector<Person*> PersonController::getPeople() const {
     const std::map<int, Person*> *people{this->db->getPersons()};
 
