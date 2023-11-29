@@ -101,7 +101,7 @@ std::vector<Person*> PersonController::getFriends() const {
     return friends;
 }
 
-std::vector<Person*> PersonController::getFriendRequets() const {
+std::vector<Person*> PersonController::getFriendRequests() const {
     const std::vector<Friendship*> *friendships{this->db->getFriendships()};
 
     std::vector<Person*> friends;

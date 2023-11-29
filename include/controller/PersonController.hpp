@@ -37,7 +37,7 @@ class PersonController : public Controller {
 
         std::vector<Person*> getFriends() const;
 
-        std::vector<Person*> getFriendRequets() const;
+        std::vector<Person*> getFriendRequests() const;
 
         bool sendFriendship(Person *const receiver);
 
