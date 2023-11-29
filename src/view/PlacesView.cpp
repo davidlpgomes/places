@@ -23,22 +23,22 @@ unsigned int getViewType();
 unsigned int PlacesView::getViewType()
 {
     return this->viewType;
-};
+}
 
 void PlacesView::setViewType(unsigned int viewType)
 {
     this->viewType = viewType;
-};
+}
 
 ViewsStatesEnum PlacesView::getViewState()
 {
     return this->viewState;
-};
+}
 
 void PlacesView::setViewState(ViewsStatesEnum viewState)
 {
     this->viewState = viewState;
-};
+}
 
 void PlacesView::getInitialPage()
 {

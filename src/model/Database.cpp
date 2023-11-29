@@ -14,7 +14,7 @@ Database::Database():
     friendships{new std::vector<Friendship*>},
     invites{new std::vector<Invite*>},
     intentions{new std::multiset<EventIntention>} {
-};
+}
 
 Database *Database::getInstance() {
     if (Database::database == nullptr)
